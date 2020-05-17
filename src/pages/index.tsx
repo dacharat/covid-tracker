@@ -1,27 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GetServerSideProps } from 'next'
 
 import Hello from '@components/common/Hello'
-import World from '@svg/world.svg'
-// import World from '@svg-maps/world'
-import { world } from '../components/common/world'
-import { SVGMap, RadioSVGMap } from 'react-svg-map'
+import ReactTooltip from 'react-tooltip'
 import axios from 'axios'
+import styled from 'styled-components'
 
 import { Props } from '../interface/types'
-// event.target.attributes.name.value
+import MapChart from '@components/home/MapChart'
+
+const Map = styled(MapChart)`
+  border: 1px solid #000;
+`
+
 const App = ({ data }: Props) => {
-  const handleMouseOver = (e: { target: { attributes: { name: { value: any } } } }) =>
-    console.log(e.target.attributes.name.value)
+  const [content, setContent] = useState('')
+
   return (
     <div>
       <Hello />
-      {/* <World
-      mapsvgGeoViewBox={'-169.110266 83.600842 190.486279 -58.508473'}
-      mapsvggeoviewbox={'-169.110266 83.600842 190.486279 -58.508473'}
-    /> */}
-      <RadioSVGMap map={world} onLocationMouseOver={handleMouseOver} />
-
+      <Map setTooltipContent={setContent} />
+      <ReactTooltip html={true}>{content}</ReactTooltip>
       {data && (
         <div>
           <p>{`NewConfirmed: ${data.Global.NewConfirmed}`}</p>

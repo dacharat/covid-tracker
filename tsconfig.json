@@ -15,8 +15,7 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@svg/*": ["src/svg/*"]
+      "@components/*": ["src/components/*"]
     }
   },
   "exclude": ["node_modules"],
