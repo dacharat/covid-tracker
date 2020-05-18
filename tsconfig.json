@@ -16,7 +16,8 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@interface/*": ["src/interface/*"]
     }
   },
   "exclude": ["node_modules"],

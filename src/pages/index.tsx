@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { GetServerSideProps } from 'next'
 
-import Hello from '@components/common/Hello'
 import ReactTooltip from 'react-tooltip'
 import axios from 'axios'
 import styled from 'styled-components'
 
 import { Props } from '../interface/types'
 import MapChart from '@components/home/MapChart'
+import CountryCase from '@components/home/CountryCase'
+import CountriesCaseTable from '@components/home/CountriesCaseTable'
 
-const Map = styled(MapChart)`
+const MapView = styled.div`
   border: 1px solid #000;
 `
 
@@ -18,21 +19,14 @@ const App = ({ data }: Props) => {
 
   return (
     <div>
-      <Hello />
-      <Map countries={data.Countries} setTooltipContent={setContent} />
+      <CountryCase countries={data.Countries} />
+      <MapView>
+        <MapChart countries={data.Countries} setTooltipContent={setContent} />
+      </MapView>
       <ReactTooltip border multiline type="light" html={true}>
         {content}
       </ReactTooltip>
-      {data && (
-        <div>
-          <p>{`NewConfirmed: ${data.Global.NewConfirmed}`}</p>
-          <p>{data.Global.NewDeaths}</p>
-          <p>{data.Global.NewRecovered}</p>
-          <p>{data.Global.TotalConfirmed}</p>
-          <p>{data.Global.TotalDeaths}</p>
-          <p>{data.Global.TotalRecovered}</p>
-        </div>
-      )}
+      <CountriesCaseTable countries={data.Countries} />
     </div>
   )
 }

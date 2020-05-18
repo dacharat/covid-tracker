@@ -28,8 +28,37 @@ export const getCountryStatus = (name: string, country: Country) => {
 const generateCountryStatus = (country: Country) => {
   return `Country: ${country.Country}<br />
   Date: ${new Date(country.Date).toLocaleDateString('th-TH')}<br />
-  TotalConfirmed: ${numberWithCommas(country.TotalConfirmed)}(+${country.NewConfirmed})<br />
-  TotalDeaths: ${numberWithCommas(country.TotalDeaths)}(+${country.NewDeaths})<br />
-  TotalRecovered: ${numberWithCommas(country.TotalRecovered)}(+${country.NewRecovered})<br />
+  TotalConfirmed: ${getConfirmedCase(country)}<br />
+  TotalDeaths: ${getDeathsCase(country)}<br />
+  TotalRecovered: ${getRecoveredCase(country)}<br />
   `
+}
+
+export const getConfirmedCase = ({ TotalConfirmed, NewConfirmed }: Country) => {
+  return `${numberWithCommas(TotalConfirmed)}(+${NewConfirmed})`
+}
+
+export const getDeathsCase = ({ TotalDeaths, NewDeaths }: Country) => {
+  return `${numberWithCommas(TotalDeaths)}(+${NewDeaths})`
+}
+
+export const getRecoveredCase = ({ TotalRecovered, NewRecovered }: Country) => {
+  return `${numberWithCommas(TotalRecovered)}(+${NewRecovered})`
+}
+
+export const getActiveCase = (country: Country) => {
+  const {
+    TotalConfirmed,
+    NewConfirmed,
+    TotalDeaths,
+    NewDeaths,
+    TotalRecovered,
+    NewRecovered,
+  } = country
+
+  const totalActived = TotalConfirmed - TotalDeaths - TotalRecovered
+  const newActived = NewConfirmed - NewDeaths - NewRecovered
+  const newActivedSign = newActived < 0 ? '-' : '+'
+
+  return `${numberWithCommas(totalActived)}(${newActivedSign}${Math.abs(newActived)})`
 }

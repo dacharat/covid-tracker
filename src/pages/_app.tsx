@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 
+import 'antd/dist/antd.css'
+
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
