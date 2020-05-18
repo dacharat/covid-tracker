@@ -17,6 +17,8 @@
       "options": ["ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
     },
     "react-hooks-nesting": true,
-    "semicolon": [true, "never"]
+    "semicolon": [true, "never"],
+    "allowElseIf": true,
+    "no-else-after-return": false
   }
 }

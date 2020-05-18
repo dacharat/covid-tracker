@@ -4,7 +4,7 @@ interface CovidResponse {
   Date: Date
 }
 
-interface Country {
+export interface Country {
   Country: string
   CountryCode: string
   Slug: string
@@ -28,4 +28,9 @@ interface Global {
 
 export interface Props {
   data: CovidResponse | null
+}
+
+export interface MapChartProps {
+  countries: Country[]
+  setTooltipContent: Function
 }

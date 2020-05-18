@@ -19,8 +19,10 @@ const App = ({ data }: Props) => {
   return (
     <div>
       <Hello />
-      <Map setTooltipContent={setContent} />
-      <ReactTooltip html={true}>{content}</ReactTooltip>
+      <Map countries={data.Countries} setTooltipContent={setContent} />
+      <ReactTooltip border multiline type="light" html={true}>
+        {content}
+      </ReactTooltip>
       {data && (
         <div>
           <p>{`NewConfirmed: ${data.Global.NewConfirmed}`}</p>
@@ -36,9 +38,8 @@ const App = ({ data }: Props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // const { data } = await axios.get('https://api.covid19api.com/summary')
-  // return { props: { data } }
-  return { props: {} }
+  const { data } = await axios.get('https://api.covid19api.com/summary')
+  return { props: { data } }
 }
 
 export default App
