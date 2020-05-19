@@ -2,10 +2,24 @@ import { useState, useEffect } from 'react'
 import { Statistic, Card, Row, Col, Typography, Select } from 'antd'
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 
 import CountryCaseCard from './CountryCaseCard'
-import { CountryCaseProps, Country } from '@interface/types'
-import { getConfirmedCase, getDeathsCase, getRecoveredCase, getActiveCase } from '@utils/utils'
+import { Country } from '@interface/types'
+import { CountryCaseProps } from '@interface/props'
+import {
+  getConfirmedCase,
+  getDeathsCase,
+  getRecoveredCase,
+  getActiveCase,
+  getRecoveredRate,
+  getDeathsRate,
+} from '@utils/utils'
+
+interface Rate {
+  recoveredRate: number
+  deathsRate: number
+}
 
 const { Option } = Select
 const { Title } = Typography
@@ -17,10 +31,16 @@ const CardContainer = styled.div.attrs({ className: 'site-statistic-demo-card' }
 const CountryCase = ({ countries }: CountryCaseProps) => {
   const [country, setCountry] = useState<string>('Thailand')
   const [data, setData] = useState<Country | undefined>(undefined)
+  const [rate, setRate] = useState<Rate>({ recoveredRate: 0, deathsRate: 0 })
 
   useEffect(() => {
     const selectedCountry = countries.find(c => c.Country === country)
     setData(selectedCountry)
+    setRate({
+      recoveredRate: getRecoveredRate(selectedCountry),
+      deathsRate: getDeathsRate(selectedCountry),
+    })
+    console.log(getRecoveredRate(selectedCountry), getDeathsRate(selectedCountry))
   }, [country])
 
   const handleOnChange = (value: string) => {
@@ -29,8 +49,6 @@ const CountryCase = ({ countries }: CountryCaseProps) => {
 
   return (
     <>
-      <Title level={2}>Country Case Summary</Title>
-
       <Select
         showSearch
         defaultValue={country}
@@ -48,7 +66,6 @@ const CountryCase = ({ countries }: CountryCaseProps) => {
           </Option>
         ))}
       </Select>
-
       <CardContainer>
         <Row justify="center">
           <Col span={12}>
@@ -96,6 +113,31 @@ const CountryCase = ({ countries }: CountryCaseProps) => {
           {/* <CountryCaseCard title={'test'} /> */}
         </Row>
       </CardContainer>
+
+      <Row justify="center">
+        <Col span={4}>
+          <CircularProgressbar
+            styles={buildStyles({
+              textColor: '#38a169',
+              pathColor: '#c6f6d5',
+            })}
+            value={rate.recoveredRate}
+            text={`${rate.recoveredRate}% `}
+          />
+          <Title level={4}>Recovery Rate</Title>
+        </Col>
+        <Col span={4}>
+          <CircularProgressbar
+            styles={buildStyles({
+              textColor: '#e53e3e',
+              pathColor: '#e53e3e',
+            })}
+            value={rate.deathsRate}
+            text={`${rate.deathsRate}%`}
+          />
+          <Title level={4}>Death Rate</Title>
+        </Col>
+      </Row>
     </>
   )
 }

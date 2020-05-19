@@ -62,3 +62,11 @@ export const getActiveCase = (country: Country) => {
 
   return `${numberWithCommas(totalActived)}(${newActivedSign}${Math.abs(newActived)})`
 }
+
+export const getRecoveredRate = (country: Country) => {
+  return +((country.TotalRecovered * 100) / country.TotalConfirmed).toFixed(2)
+}
+
+export const getDeathsRate = (country: Country) => {
+  return +((country.TotalDeaths * 100) / country.TotalConfirmed).toFixed(2)
+}

@@ -1,13 +1,11 @@
 import React, { memo, Fragment } from 'react'
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps'
 import { geoCentroid, geoBounds } from 'd3-geo'
+
 import { getDisplayFontSize, getLength, getCountryStatus } from '@utils/utils'
-import { MapChartProps, Country } from 'src/interface/types'
+import { GEO_URL, MAX_COMFIRMED } from '@utils/constant'
+import { MapChartProps } from '@interface/props'
 
-const geoUrl =
-  'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json'
-
-const MAX_COMFIRMED = 500_000
 const redValue = (totalConfirmed: number) => {
   if (totalConfirmed > MAX_COMFIRMED) {
     return 0
@@ -18,7 +16,7 @@ const redValue = (totalConfirmed: number) => {
 const MapChart = ({ countries, setTooltipContent }: MapChartProps) => {
   return (
     <ComposableMap width={1150} data-tip="" projectionConfig={{ scale: 200 }}>
-      <Geographies geography={geoUrl}>
+      <Geographies geography={GEO_URL}>
         {({ geographies }) =>
           geographies.map((geo: any) => {
             const centroid = geoCentroid(geo)

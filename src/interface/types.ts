@@ -1,4 +1,4 @@
-interface CovidResponse {
+export interface CovidResponse {
   Global: Global
   Countries: Country[]
   Date: Date
@@ -17,24 +17,11 @@ export interface Country {
   Date: Date
 }
 
-interface Global {
+export interface Global {
   NewConfirmed: number
   TotalConfirmed: number
   NewDeaths: number
   TotalDeaths: number
   NewRecovered: number
   TotalRecovered: number
-}
-
-export interface Props {
-  data: CovidResponse | null
-}
-
-export interface MapChartProps {
-  countries: Country[]
-  setTooltipContent: Function
-}
-
-export interface CountryCaseProps {
-  countries: Country[]
 }

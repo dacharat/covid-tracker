@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import { CountryCaseProps, Country } from '@interface/types'
 import { List, Button } from 'antd'
 import ReactCountryFlag from 'react-country-flag'
 
+import { Country } from '@interface/types'
+import { CountryCaseProps } from '@interface/props'
 import { getConfirmedCase, getDeathsCase, getRecoveredCase } from '@utils/utils'
-
-const SIZE = 10
+import { SIZE } from '@utils/constant'
 
 const CountriesCaseTable = ({ countries }: CountryCaseProps) => {
   const [countriesSource, setCountriesSource] = useState<Country[]>([])
