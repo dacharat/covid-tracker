@@ -1,25 +1,45 @@
-import { Statistic, Card, Row, Col } from 'antd'
+import { Statistic, Card } from 'antd'
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
-import { ReactText } from 'react'
 
-interface CountryCaseCardProps {
-  title: ReactText
-}
+import { CountryCaseCardProps } from '@interface/props'
 
-const CountryCaseCard = ({ title = 'empty' }: CountryCaseCardProps) => {
+const CountryCaseCard = ({
+  title = 'empty',
+  value,
+  increment = 0,
+  reverseColor,
+}: CountryCaseCardProps) => {
+  const getPrefix = () => {
+    if (increment > 0) {
+      return <ArrowUpOutlined />
+    } else if (increment < 0) {
+      return <ArrowDownOutlined />
+    } else {
+      return null
+    }
+  }
+
+  const getColor = () => {
+    const finalIncrement = reverseColor ? increment * -1 : increment
+    if (finalIncrement < 0) {
+      return '#cf1322'
+    } else if (finalIncrement > 0) {
+      return '#3f8600'
+    } else {
+      return '#f2c94c'
+    }
+  }
+
   return (
-    <Col span={4}>
-      <Card>
-        <Statistic
-          title="Idle"
-          value={title}
-          precision={2}
-          valueStyle={{ color: '#cf1322' }}
-          prefix={<ArrowDownOutlined />}
-          suffix="%"
-        />
-      </Card>
-    </Col>
+    <Card>
+      <Statistic
+        title={title}
+        value={value}
+        precision={2}
+        valueStyle={{ color: getColor() }}
+        prefix={getPrefix()}
+      />
+    </Card>
   )
 }
 

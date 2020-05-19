@@ -1,28 +1,9 @@
-import { ReactNode } from 'react'
 import styled from 'styled-components'
 
 import Nav from './Nav'
 import ElementsWrapper from './ElementsWrapper'
 import Hamburger from './Hamburger'
-
-interface NavViewProps {
-  height: number
-  backgroundColor: string
-}
-interface NavBarProps {
-  items: any[]
-  offset?: number
-  duration?: number
-  delay?: number
-  height?: number
-  backgroundColor?: string
-  children?: ReactNode[] | ReactNode
-  coverWidth?: number
-  navWidth?: number
-  linkClass?: string
-  activeLinkClass?: string
-  header: ReactNode
-}
+import { NavViewProps, NavBarProps } from '@interface/props'
 
 const NavView = styled.div<NavViewProps>`
   height: ${({ height }) => (height ? `${height}px` : '70px')};

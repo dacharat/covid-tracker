@@ -6,6 +6,11 @@ import { Country } from '@interface/types'
 import { CountryCaseProps } from '@interface/props'
 import { getConfirmedCase, getDeathsCase, getRecoveredCase } from '@utils/utils'
 import { SIZE } from '@utils/constant'
+import styled from 'styled-components'
+
+const Flag = styled(ReactCountryFlag)`
+  border-radius: 10px;
+`
 
 const CountriesCaseTable = ({ countries }: CountryCaseProps) => {
   const [countriesSource, setCountriesSource] = useState<Country[]>([])
@@ -55,11 +60,11 @@ const CountriesCaseTable = ({ countries }: CountryCaseProps) => {
       dataSource={countriesSource}
       renderItem={country => (
         <List.Item>
-          <ReactCountryFlag
+          <Flag
             svg
             style={{
-              width: '2em',
-              height: '2em',
+              width: '3em',
+              height: '3em',
             }}
             countryCode={country.CountryCode}
           />

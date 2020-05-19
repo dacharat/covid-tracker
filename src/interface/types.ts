@@ -25,3 +25,8 @@ export interface Global {
   NewRecovered: number
   TotalRecovered: number
 }
+
+export interface Rate {
+  recoveredRate: number
+  deathsRate: number
+}

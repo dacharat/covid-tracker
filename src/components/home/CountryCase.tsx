@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Statistic, Card, Row, Col, Typography, Select } from 'antd'
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 
 import CountryCaseCard from './CountryCaseCard'
-import { Country } from '@interface/types'
+import { Country, Rate } from '@interface/types'
 import { CountryCaseProps } from '@interface/props'
 import {
   getConfirmedCase,
@@ -15,14 +13,11 @@ import {
   getRecoveredRate,
   getDeathsRate,
 } from '@utils/utils'
-
-interface Rate {
-  recoveredRate: number
-  deathsRate: number
-}
+import CircleProgress from './CircleProgress'
 
 const { Option } = Select
 const { Title } = Typography
+
 const CardContainer = styled.div.attrs({ className: 'site-statistic-demo-card' })`
   max-width: 1000px;
   margin: auto;
@@ -68,74 +63,48 @@ const CountryCase = ({ countries }: CountryCaseProps) => {
       </Select>
       <CardContainer>
         <Row justify="center">
-          <Col span={12}>
-            <Card>
-              <Statistic
-                title="Actived"
-                value={data ? getActiveCase(data) : 0}
-                valueStyle={{ color: '#3f8600' }}
-                prefix={<ArrowUpOutlined />}
-              />
-            </Card>
+          <Col span={18}>
+            <CountryCaseCard
+              reverseColor
+              title="Actived"
+              value={data ? getActiveCase(data) : 0}
+              increment={data ? data.TotalConfirmed - data.TotalRecovered - data.TotalDeaths : 0}
+            />
           </Col>
         </Row>
         <Row justify="center">
-          <Col span={4}>
-            <Card>
-              <Statistic
-                title="Confirmed"
-                value={data ? getConfirmedCase(data) : 0}
-                valueStyle={{ color: '#3f8600' }}
-                prefix={<ArrowUpOutlined />}
-              />
-            </Card>
+          <Col span={6}>
+            <CountryCaseCard
+              reverseColor
+              title="Confirmed"
+              value={data ? getConfirmedCase(data) : 0}
+              increment={data ? data.NewConfirmed : 0}
+            />
           </Col>
-          <Col span={4}>
-            <Card>
-              <Statistic
-                title="Death"
-                value={data ? getDeathsCase(data) : 0}
-                valueStyle={{ color: '#cf1322' }}
-                prefix={<ArrowDownOutlined />}
-              />
-            </Card>
+          <Col span={6}>
+            <CountryCaseCard
+              reverseColor
+              title="Death"
+              value={data ? getDeathsCase(data) : 0}
+              increment={data ? data.NewDeaths : 0}
+            />
           </Col>
-          <Col span={4}>
-            <Card>
-              <Statistic
-                title="Recovered"
-                value={data ? getRecoveredCase(data) : 0}
-                valueStyle={{ color: '#cf1322' }}
-                prefix={<ArrowDownOutlined />}
-              />
-            </Card>
+          <Col span={6}>
+            <CountryCaseCard
+              title="Recovered"
+              value={data ? getRecoveredCase(data) : 0}
+              increment={data ? data.NewRecovered : 0}
+            />
           </Col>
-          {/* <CountryCaseCard title={'test'} /> */}
         </Row>
       </CardContainer>
 
       <Row justify="center">
         <Col span={4}>
-          <CircularProgressbar
-            styles={buildStyles({
-              textColor: '#38a169',
-              pathColor: '#c6f6d5',
-            })}
-            value={rate.recoveredRate}
-            text={`${rate.recoveredRate}% `}
-          />
-          <Title level={4}>Recovery Rate</Title>
+          <CircleProgress color="#38a169" value={rate.recoveredRate} text="Recovery Rate" />
         </Col>
         <Col span={4}>
-          <CircularProgressbar
-            styles={buildStyles({
-              textColor: '#e53e3e',
-              pathColor: '#e53e3e',
-            })}
-            value={rate.deathsRate}
-            text={`${rate.deathsRate}%`}
-          />
-          <Title level={4}>Death Rate</Title>
+          <CircleProgress color="#e53e3e" value={rate.deathsRate} text="Death Rate" />
         </Col>
       </Row>
     </>
