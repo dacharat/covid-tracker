@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
-import { Statistic, Card, Row, Col, Typography, Select } from 'antd'
+import { useState, useEffect, useContext } from 'react'
+import { Row, Col, Typography, Select } from 'antd'
 import styled from 'styled-components'
 
 import CountryCaseCard from './CountryCaseCard'
-import { Country, Rate } from '@interface/types'
-import { CountryCaseProps } from '@interface/props'
+import { Rate } from '@interface/types'
 import {
   getConfirmedCase,
   getDeathsCase,
@@ -14,61 +13,47 @@ import {
   getDeathsRate,
 } from '@utils/utils'
 import CircleProgress from './CircleProgress'
+import { HomeContext } from '@utils/context'
+import CountrySelector from './CountrySelector'
 
 const { Option } = Select
-const { Title } = Typography
 
 const CardContainer = styled.div.attrs({ className: 'site-statistic-demo-card' })`
   max-width: 1000px;
   margin: auto;
 `
 
-const CountryCase = ({ countries }: CountryCaseProps) => {
-  const [country, setCountry] = useState<string>('Thailand')
-  const [data, setData] = useState<Country | undefined>(undefined)
+const CountryCase = () => {
+  const { data, selectedCountry } = useContext(HomeContext)
+
   const [rate, setRate] = useState<Rate>({ recoveredRate: 0, deathsRate: 0 })
 
   useEffect(() => {
-    const selectedCountry = countries.find(c => c.Country === country)
-    setData(selectedCountry)
-    setRate({
-      recoveredRate: getRecoveredRate(selectedCountry),
-      deathsRate: getDeathsRate(selectedCountry),
-    })
-    console.log(getRecoveredRate(selectedCountry), getDeathsRate(selectedCountry))
-  }, [country])
-
-  const handleOnChange = (value: string) => {
-    setCountry(value)
-  }
+    if (selectedCountry) {
+      setRate({
+        recoveredRate: getRecoveredRate(selectedCountry),
+        deathsRate: getDeathsRate(selectedCountry),
+      })
+    }
+  }, [selectedCountry])
 
   return (
     <>
-      <Select
-        showSearch
-        defaultValue={country}
-        style={{ width: 200 }}
-        placeholder="Select a country"
-        optionFilterProp="children"
-        onChange={handleOnChange}
-        // filterOption={(input, option) =>
-        //   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        // }
-      >
-        {countries.map(c => (
-          <Option key={c.CountryCode} value={c.Country}>
-            {c.Country}
-          </Option>
-        ))}
-      </Select>
+      <CountrySelector />
       <CardContainer>
         <Row justify="center">
           <Col span={18}>
             <CountryCaseCard
               reverseColor
               title="Actived"
-              value={data ? getActiveCase(data) : 0}
-              increment={data ? data.TotalConfirmed - data.TotalRecovered - data.TotalDeaths : 0}
+              value={selectedCountry ? getActiveCase(selectedCountry) : 0}
+              increment={
+                selectedCountry
+                  ? selectedCountry.TotalConfirmed -
+                    selectedCountry.TotalRecovered -
+                    selectedCountry.TotalDeaths
+                  : 0
+              }
             />
           </Col>
         </Row>
@@ -77,23 +62,23 @@ const CountryCase = ({ countries }: CountryCaseProps) => {
             <CountryCaseCard
               reverseColor
               title="Confirmed"
-              value={data ? getConfirmedCase(data) : 0}
-              increment={data ? data.NewConfirmed : 0}
+              value={selectedCountry ? getConfirmedCase(selectedCountry) : 0}
+              increment={selectedCountry ? selectedCountry.NewConfirmed : 0}
             />
           </Col>
           <Col span={6}>
             <CountryCaseCard
               reverseColor
               title="Death"
-              value={data ? getDeathsCase(data) : 0}
-              increment={data ? data.NewDeaths : 0}
+              value={selectedCountry ? getDeathsCase(selectedCountry) : 0}
+              increment={selectedCountry ? selectedCountry.NewDeaths : 0}
             />
           </Col>
           <Col span={6}>
             <CountryCaseCard
               title="Recovered"
-              value={data ? getRecoveredCase(data) : 0}
-              increment={data ? data.NewRecovered : 0}
+              value={selectedCountry ? getRecoveredCase(selectedCountry) : 0}
+              increment={selectedCountry ? selectedCountry.NewRecovered : 0}
             />
           </Col>
         </Row>

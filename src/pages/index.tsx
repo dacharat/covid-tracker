@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { GetServerSideProps } from 'next'
 
 import ReactTooltip from 'react-tooltip'
@@ -11,6 +11,8 @@ import CountryCase from '@components/home/CountryCase'
 import CountriesCaseTable from '@components/home/CountriesCaseTable'
 import NavBar, { ElementsWrapper } from '@components/common/Navbar'
 import { mock } from '@utils/mock'
+import { HomeContext } from '@utils/context'
+import { Country, CovidResponse } from '@interface/types'
 
 const MapView = styled.div`
   border: 1px solid #000;
@@ -50,9 +52,16 @@ const navbarItems = [
 
 const App = ({ data }: Props) => {
   const [content, setContent] = useState('')
+  const [country, setCountry] = useState<string>('Thailand')
+  const [selectedCountry, setSelectedCountry] = useState<Country>()
+
+  useEffect(() => {
+    const selected = data.Countries.find(c => c.Country === country)
+    setSelectedCountry(selected)
+  }, [country])
 
   return (
-    <div>
+    <HomeContext.Provider value={{ data, country, setCountry, selectedCountry }}>
       <NavBar
         header={
           <HeaderView>
@@ -68,23 +77,24 @@ const App = ({ data }: Props) => {
       />
       <Container>
         <ElementsWrapper items={navbarItems}>
-          <CountryCase countries={data.Countries} />
+          <CountryCase />
           <MapView>
-            <MapChart countries={data.Countries} setTooltipContent={setContent} />
+            <MapChart setTooltipContent={setContent} />
           </MapView>
-          <CountriesCaseTable countries={data.Countries} />
+          <CountriesCaseTable />
         </ElementsWrapper>
         <ReactTooltip border multiline type="light" html={true}>
           {content}
         </ReactTooltip>
       </Container>
-    </div>
+    </HomeContext.Provider>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
   // const { data } = await axios.get('https://api.covid19api.com/summary')
   const data = mock
+  data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
   return { props: { data } }
 }
 

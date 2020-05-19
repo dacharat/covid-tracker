@@ -1,10 +1,11 @@
-import React, { memo, Fragment } from 'react'
+import React, { memo, Fragment, useContext } from 'react'
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps'
 import { geoCentroid, geoBounds } from 'd3-geo'
 
 import { getDisplayFontSize, getLength, getCountryStatus } from '@utils/utils'
 import { GEO_URL, MAX_COMFIRMED } from '@utils/constant'
 import { MapChartProps } from '@interface/props'
+import { HomeContext } from '@utils/context'
 
 const redValue = (totalConfirmed: number) => {
   if (totalConfirmed > MAX_COMFIRMED) {
@@ -13,7 +14,9 @@ const redValue = (totalConfirmed: number) => {
   return 150 - (totalConfirmed / MAX_COMFIRMED) * 150
 }
 
-const MapChart = ({ countries, setTooltipContent }: MapChartProps) => {
+const MapChart = ({ setTooltipContent }: MapChartProps) => {
+  const countries = useContext(HomeContext).data.Countries
+
   return (
     <ComposableMap width={1150} data-tip="" projectionConfig={{ scale: 200 }}>
       <Geographies geography={GEO_URL}>

@@ -6,12 +6,7 @@ export interface Props {
 }
 
 export interface MapChartProps {
-  countries: Country[]
   setTooltipContent: Function
-}
-
-export interface CountryCaseProps {
-  countries: Country[]
 }
 
 export interface ListProps {
