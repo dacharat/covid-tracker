@@ -91,11 +91,19 @@ const App = ({ data }: Props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  // const { data } = await axios.get('https://api.covid19api.com/summary')
-  const data = mock
-  data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
-  return { props: { data } }
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   // const { data } = await axios.get('https://api.covid19api.com/summary')
+//   const data = mock
+//   data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
+//   return { props: { data } }
+// }
+
+App.getInitialProps = async () => {
+  const { data } = await axios.get('https://api.covid19api.com/summary')
+  data.Countries = data.Countries.sort(
+    (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
+  )
+  return { data }
 }
 
 export default App
