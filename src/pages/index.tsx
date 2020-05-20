@@ -13,7 +13,7 @@ import NavBar, { ElementsWrapper } from '@components/common/Navbar'
 import { HomeContext } from '@utils/context'
 import { Country, CovidResponse } from '@interface/types'
 
-import { mock } from '@utils/mock'
+// import { mock } from '@utils/mock'
 
 const MapView = styled.div`
   border: 1px solid #000;
@@ -93,12 +93,12 @@ const App = ({ data }: Props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // const { data } = await axios.get('https://api.covid19api.com/summary')
-  // data.Countries = data.Countries.sort(
-  //   (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
-  // )
-  const data = mock
-  data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
+  const { data } = await axios.get('https://api.covid19api.com/summary')
+  data.Countries = data.Countries.sort(
+    (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
+  )
+  // const data = mock
+  // data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
   return { props: { data } }
 }
 
