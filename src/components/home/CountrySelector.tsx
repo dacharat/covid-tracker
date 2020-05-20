@@ -12,12 +12,21 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  max-width: 900px;
+  width: 100%;
+  margin: 5px;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    justify-content: space-between;
+  }
 `
 const Overview = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `
 const OverviewText = styled.h1`
+  font-size: calc(18px + 13 * ((100vw - 200px) / (1600 - 300)));
   margin: 0;
 `
 

@@ -1,7 +1,26 @@
-import { Statistic, Card } from 'antd'
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
 
 import { CountryCaseCardProps } from '@interface/props'
+import styled from 'styled-components'
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 7px 0;
+`
+const Total = styled.p`
+  font-weight: 600;
+  font-size: 22px;
+  color: ${({ color }) => color};
+  margin: 0;
+`
+const Text = styled.p`
+  font-weight: 600;
+  font-size: 20px;
+  color: #a6a6a6;
+  margin: 0;
+`
 
 const CountryCaseCard = ({
   title = 'empty',
@@ -32,13 +51,11 @@ const CountryCaseCard = ({
 
   return (
     <Card>
-      <Statistic
-        title={title}
-        value={value}
-        precision={2}
-        valueStyle={{ color: getColor() }}
-        prefix={getPrefix()}
-      />
+      <Text>{title}</Text>
+      <Total color={getColor()}>
+        {getPrefix()}
+        {` ${value}`}
+      </Total>
     </Card>
   )
 }

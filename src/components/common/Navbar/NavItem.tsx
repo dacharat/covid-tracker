@@ -11,7 +11,9 @@ const List = styled.li<ListProps>`
   transition: border-bottom 0.5s ease-in-out;
   :hover {
     background-color: #d6d6d6;
-    border-bottom: 3px solid #000;
+    @media (min-width: 767px) {
+      border-bottom: 3px solid #000;
+    }
   }
 `
 const Item = styled(Link)`
