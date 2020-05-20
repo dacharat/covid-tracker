@@ -1,21 +1,12 @@
-import { ReactNode } from 'react'
 import styled from 'styled-components'
 
 import NavItem from './NavItem'
+import { NavProps } from '@interface/props'
 
 const DEFAULT_NAV_WIDTH = 86
 
 interface StyledProps {
   width: number
-}
-interface NavProps {
-  items: any[]
-  offset: number
-  duration: number
-  delay: number
-  coverWidth: number
-  navWidth: number
-  children?: ReactNode[]
 }
 
 const Cover = styled.div<StyledProps>`

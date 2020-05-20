@@ -1,5 +1,6 @@
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import Title from 'antd/lib/typography/Title'
+
 import { CircleProgressProps } from '@interface/props'
 
 const CircleProgress = ({ value, text, color = '#4db0f7' }: CircleProgressProps) => {

@@ -1,8 +1,9 @@
-import { HomeContext } from '@utils/context'
 import { useContext } from 'react'
-import { Select } from 'antd'
 import styled from 'styled-components'
-import ReactCountryFlag from 'react-country-flag'
+import { Select } from 'antd'
+
+import { HomeContext } from '@utils/context'
+import Flag from '@components/common/Flag'
 
 const { Option } = Select
 
@@ -19,9 +20,6 @@ const Overview = styled.div`
 const OverviewText = styled.h1`
   margin: 0;
 `
-const Flag = styled(ReactCountryFlag)`
-  padding: 0 5px;
-`
 
 const CountrySelector = () => {
   const { data, country, selectedCountry = { CountryCode: 'TH' }, setCountry } = useContext(
@@ -36,14 +34,7 @@ const CountrySelector = () => {
   return (
     <Container>
       <Overview>
-        <Flag
-          svg
-          style={{
-            width: '3em',
-            height: '3em',
-          }}
-          countryCode={selectedCountry.CountryCode}
-        />
+        <Flag country={selectedCountry} size={3} />
         <OverviewText>{`${country} Overview`}</OverviewText>
       </Overview>
       <Select

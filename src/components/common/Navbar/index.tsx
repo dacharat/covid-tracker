@@ -73,6 +73,6 @@ const Navbar = ({
     </NavView>
   )
 }
-export default Navbar
 
+export default Navbar
 export { ElementsWrapper }

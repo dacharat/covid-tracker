@@ -1,5 +1,5 @@
 import { CovidResponse, Country } from '@interface/types'
-import { ReactNode, ReactText } from 'react'
+import { ReactNode, ReactText, CSSProperties } from 'react'
 
 export interface Props {
   data: CovidResponse | null
@@ -51,4 +51,27 @@ export interface CountryCaseCardProps {
   value: ReactText
   increment?: number
   reverseColor?: boolean
+}
+
+export interface ElementsWrapperProps {
+  children?: ReactNode[]
+  items: any[]
+  style?: CSSProperties
+  className?: string
+}
+
+export interface NavProps {
+  items: any[]
+  offset: number
+  duration: number
+  delay: number
+  coverWidth?: number
+  navWidth: number
+  children?: ReactNode[]
+}
+
+export interface FlagProps {
+  country: Country
+  size?: number
+  radius?: number
 }

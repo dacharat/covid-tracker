@@ -1,8 +1,10 @@
-import { Button, Drawer } from 'antd'
 import { useState } from 'react'
+import { Button, Drawer } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
-import NavItem from './NavItem'
 import styled from 'styled-components'
+
+import NavItem from './NavItem'
+import { NavProps } from '@interface/props'
 
 const List = styled.ul`
   list-style: none;
@@ -22,7 +24,7 @@ const HamIcon = styled(MenuOutlined)`
   font-size: 20px;
 `
 
-const Hamburger = ({ items, offset, duration, delay, coverWidth, navWidth }) => {
+const Hamburger = ({ items, offset, duration, delay, navWidth }: NavProps) => {
   const [visible, setVisible] = useState<boolean>(false)
 
   const handleButtonClick = () => {

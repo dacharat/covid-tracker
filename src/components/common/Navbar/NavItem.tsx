@@ -1,10 +1,11 @@
 import { Link } from 'react-scroll'
 import styled from 'styled-components'
+
 import { ListProps, NavItemProps } from '@interface/props'
 
 const List = styled.li<ListProps>`
   width: ${({ width }) => `${width}px`};
-  height: '100%';
+  height: 100%;
   padding: 0 5px;
   transition: background-color 0.5s ease;
   transition: border-bottom 0.5s ease-in-out;

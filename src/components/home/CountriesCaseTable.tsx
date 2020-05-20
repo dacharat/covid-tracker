@@ -1,20 +1,22 @@
 import { useState, useContext } from 'react'
 import { Button, Table } from 'antd'
-import ReactCountryFlag from 'react-country-flag'
+import styled from 'styled-components'
 
 import { SIZE } from '@utils/constant'
-import styled from 'styled-components'
 import { HomeContext } from '@utils/context'
+import Flag from '@components/common/Flag'
 
-const Flag = styled(ReactCountryFlag)`
-  border-radius: 10px;
-  padding: 0 5px;
-`
 const CountryView = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+`
+const LoadMoreView = styled.div`
+  text-align: center;
+  margin-top: 12;
+  height: 32;
+  line-height: 32px;
 `
 
 const columns = [
@@ -52,14 +54,7 @@ const CountriesCaseTable = () => {
     key: i + 1,
     country: (
       <CountryView>
-        <Flag
-          svg
-          style={{
-            width: '2em',
-            height: '2em',
-          }}
-          countryCode={country.CountryCode}
-        />
+        <Flag country={country} size={2} radius={10} />
         <div>{country.Country}</div>
       </CountryView>
     ),
@@ -87,16 +82,9 @@ const CountriesCaseTable = () => {
         scroll={{ y: 500 }}
       />
       {tableSource.length !== displaySize && (
-        <div
-          style={{
-            textAlign: 'center',
-            marginTop: 12,
-            height: 32,
-            lineHeight: '32px',
-          }}
-        >
+        <LoadMoreView>
           <Button onClick={onLoadMore}>loading more</Button>
-        </div>
+        </LoadMoreView>
       )}
     </>
   )

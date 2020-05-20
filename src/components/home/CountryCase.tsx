@@ -16,15 +16,13 @@ import CircleProgress from './CircleProgress'
 import { HomeContext } from '@utils/context'
 import CountrySelector from './CountrySelector'
 
-const { Option } = Select
-
 const CardContainer = styled.div.attrs({ className: 'site-statistic-demo-card' })`
   max-width: 1000px;
   margin: auto;
 `
 
 const CountryCase = () => {
-  const { data, selectedCountry } = useContext(HomeContext)
+  const { selectedCountry } = useContext(HomeContext)
 
   const [rate, setRate] = useState<Rate>({ recoveredRate: 0, deathsRate: 0 })
 

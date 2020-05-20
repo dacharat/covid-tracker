@@ -1,13 +1,8 @@
-import React, { ReactNode, CSSProperties } from 'react'
+import React, { ReactNode } from 'react'
 import { Element } from 'react-scroll'
 import styled from 'styled-components'
 
-interface ElementsWrapperProps {
-  children?: ReactNode[]
-  items: any[]
-  style?: CSSProperties
-  className?: string
-}
+import { ElementsWrapperProps } from '@interface/props'
 
 const Container = styled.div`
   margin-top: 60px;
