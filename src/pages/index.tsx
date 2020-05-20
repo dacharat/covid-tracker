@@ -10,7 +10,7 @@ import MapChart from '@components/home/MapChart'
 import CountryCase from '@components/home/CountryCase'
 import CountriesCaseTable from '@components/home/CountriesCaseTable'
 import NavBar, { ElementsWrapper } from '@components/common/Navbar'
-import { mock } from '@utils/mock'
+// import { mock } from '@utils/mock'
 import { HomeContext } from '@utils/context'
 import { Country, CovidResponse } from '@interface/types'
 
@@ -91,19 +91,19 @@ const App = ({ data }: Props) => {
   )
 }
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   // const { data } = await axios.get('https://api.covid19api.com/summary')
-//   const data = mock
-//   data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
-//   return { props: { data } }
-// }
-
-App.getInitialProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await axios.get('https://api.covid19api.com/summary')
-  data.Countries = data.Countries.sort(
-    (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
-  )
-  return { data }
+  // const data = mock
+  data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
+  return { props: { data } }
 }
+
+// App.getInitialProps = async () => {
+//   const { data } = await axios.get('https://api.covid19api.com/summary')
+//   data.Countries = data.Countries.sort(
+//     (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
+//   )
+//   return { data }
+// }
 
 export default App
