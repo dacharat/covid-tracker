@@ -26,10 +26,6 @@ const HeaderView = styled.div`
   display: flex;
   flex-direction: row;
 `
-const Container = styled.div`
-  /* background: linear-gradient(to bottom, #fbd3e9, #fff); */
-  /* background: linear-gradient(tso bottom, #a1ffce, #fff); */
-`
 
 const navbarItems = [
   {

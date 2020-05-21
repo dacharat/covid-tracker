@@ -1,59 +1,111 @@
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
-import styled from 'styled-components'
+import { ArrowUpOutlined, ArrowDownOutlined, LoadingOutlined } from '@ant-design/icons'
+import styled, { keyframes } from 'styled-components'
 
-import { CountryCaseCardProps } from '@interface/props'
+import { CountryCaseCardProps, CaseTextProps } from '@interface/props'
 import { Container } from '@components/common/components'
+import { numberWithCommas } from '@utils/utils'
 
-const Card = styled(Container)`
-  padding: 7px 0;
+const bounce = keyframes`
+  0%,
+  25%,
+  50%,
+  75%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
 `
-const Total = styled.p`
+const CaseContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 10px 0;
+`
+const Card = styled(Container)`
+  padding: 7px 10px;
+  background: ${({ color }) => (color ? color : '#000')};
+  border-radius: 20px;
+  min-width: 160px;
+  margin: 10px;
+  @media (max-width: 550px) {
+    margin: 2px;
+    min-width: 0;
+  }
+`
+const CaseText = styled.p<CaseTextProps>`
   font-weight: 600;
-  font-size: 22px;
-  color: ${({ color }) => color};
+  font-size: ${({ size }) => (size ? size : 'calc(15px + 12 * ((100vw - 200px) / (1300)))')};
+  color: #fff;
   margin: 0;
 `
 const Text = styled.p`
+  width: 100%;
+  text-align: center;
   font-weight: 600;
   font-size: 20px;
   color: #a6a6a6;
-  margin: 0;
+  margin: 5px 0;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 5px;
+  @media (max-width: 680px) {
+    font-size: 18px;
+  }
+`
+const ArrowUp = styled(ArrowUpOutlined)`
+  svg {
+    animation: ${bounce} 1.5s infinite;
+  }
+`
+const ArrowDown = styled(ArrowDownOutlined)`
+  svg {
+    animation: ${bounce} 1.5s infinite;
+  }
 `
 
 const CountryCaseCard = ({
   title = 'empty',
-  value,
   increment = 0,
-  reverseColor,
+  totalCase,
+  cardColor,
+  caseFontSize,
+  increaseFontSize,
 }: CountryCaseCardProps) => {
   const getPrefix = () => {
     if (increment > 0) {
-      return <ArrowUpOutlined />
+      return <ArrowUp />
     } else if (increment < 0) {
-      return <ArrowDownOutlined />
+      return <ArrowDown />
     } else {
       return null
     }
   }
 
-  const getColor = () => {
-    const finalIncrement = reverseColor ? increment * -1 : increment
-    if (finalIncrement < 0) {
-      return '#cf1322'
-    } else if (finalIncrement > 0) {
-      return '#3f8600'
-    } else {
-      return '#f2c94c'
-    }
-  }
-
   return (
-    <Card>
+    <Card color={cardColor}>
       <Text>{title}</Text>
-      <Total color={getColor()}>
-        {getPrefix()}
-        {` ${value}`}
-      </Total>
+      <CaseContainer>
+        {totalCase ? (
+          <>
+            <CaseText size={caseFontSize}>{numberWithCommas(totalCase)}</CaseText>
+            <CaseText size={increaseFontSize}>
+              {getPrefix()}
+              {` ${increment === 0 ? '-' : numberWithCommas(Math.abs(increment))}`}
+            </CaseText>
+          </>
+        ) : (
+          <CaseText size="35px">
+            <LoadingOutlined />
+          </CaseText>
+        )}
+      </CaseContainer>
     </Card>
   )
 }

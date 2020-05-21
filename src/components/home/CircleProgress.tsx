@@ -5,7 +5,8 @@ import { CircleProgressProps } from '@interface/props'
 import { Container as C } from '@components/common/components'
 
 const Container = styled(C)`
-  width: 180px;
+  min-width: 120px;
+  max-width: 180px;
   padding: 10px;
 `
 const Text = styled.p`
@@ -25,7 +26,7 @@ const CircleProgress = ({ value, text, color = '#4db0f7' }: CircleProgressProps)
         })}
         value={value}
         text={`${value}%`}
-        strokeWidth={10}
+        strokeWidth={8}
       />
       <Text>{text}</Text>
     </Container>

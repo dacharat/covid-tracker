@@ -1,5 +1,5 @@
-import { CovidResponse, Country, Case } from '@interface/types'
 import { ReactNode, ReactText, CSSProperties } from 'react'
+import { CovidResponse, Country, Case } from '@interface/types'
 
 export interface Props {
   data: CovidResponse | null
@@ -44,9 +44,11 @@ export interface CircleProgressProps {
 
 export interface CountryCaseCardProps {
   title: ReactText
-  value: ReactText
   increment?: number
-  reverseColor?: boolean
+  totalCase: number
+  cardColor?: string
+  caseFontSize?: string
+  increaseFontSize?: string
 }
 
 export interface ElementsWrapperProps {
@@ -76,6 +78,6 @@ export interface CaseProps {
   caseData: Case
 }
 
-export interface RowGridProps {
-  item: number
+export interface CaseTextProps {
+  size?: string
 }
