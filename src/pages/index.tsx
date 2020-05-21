@@ -11,7 +11,7 @@ import CountryCase from '@components/home/CountryCase'
 import NavBar, { ElementsWrapper } from '@components/common/Navbar'
 import { HomeContext } from '@utils/context'
 
-import { mock } from '@utils/mock'
+// import { mock } from '@utils/mock'
 import GlobalCase from '@components/home/GlobalCase'
 
 const Header = styled.h1`
@@ -76,12 +76,12 @@ const App = ({ data }: Props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // const { data } = await axios.get('https://api.covid19api.com/summary')
-  // data.Countries = data.Countries.sort(
-  //   (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
-  // )
-  const data = mock
-  data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
+  const { data } = await axios.get('https://api.covid19api.com/summary')
+  data.Countries = data.Countries.sort(
+    (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
+  )
+  // const data = mock
+  // data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
   return { props: { data } }
 }
 
