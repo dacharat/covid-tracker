@@ -30,10 +30,6 @@ const Container = styled.div`
   /* background: linear-gradient(to bottom, #fbd3e9, #fff); */
   /* background: linear-gradient(tso bottom, #a1ffce, #fff); */
 `
-const Container2 = styled.div`
-  /* background: linear-gradient(to top, #fbd3e9, #fff); */
-  /* background: linear-gradient(to top, #a1ffce, #fff); */
-`
 
 const navbarItems = [
   {
@@ -73,12 +69,8 @@ const App = ({ data }: Props) => {
       />
 
       <ElementsWrapper items={navbarItems}>
-        <Container>
-          <CountryCase />
-        </Container>
-        <Container2>
-          <GlobalCase />
-        </Container2>
+        <CountryCase />
+        <GlobalCase />
       </ElementsWrapper>
       <ReactTooltip border multiline type="light" html={true}>
         {content}

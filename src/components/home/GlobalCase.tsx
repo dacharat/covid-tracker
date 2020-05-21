@@ -1,17 +1,15 @@
-import styled from 'styled-components'
-import { OverviewText } from '@components/common/components'
-import { HomeContext } from '@utils/context'
 import { useContext } from 'react'
+import styled from 'styled-components'
+
+import { OverviewText, Container as C } from '@components/common/components'
+import { HomeContext } from '@utils/context'
 
 import Case from './Case'
 import MapChart from './MapChart'
 import CountriesCaseTable from './CountriesCaseTable'
 
-const Container = styled.div`
+const Container = styled(C)`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 10px 0;
 `
 const Overview = styled.div`

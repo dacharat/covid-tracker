@@ -1,14 +1,12 @@
+import styled from 'styled-components'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 
 import { CircleProgressProps } from '@interface/props'
-import styled from 'styled-components'
+import { Container as C } from '@components/common/components'
 
-const Container = styled.div`
+const Container = styled(C)`
   width: 180px;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `
 const Text = styled.p`
   font-size: 18px;

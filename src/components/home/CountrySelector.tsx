@@ -26,6 +26,9 @@ const Overview = styled.div`
   flex-direction: row;
   align-items: center;
 `
+const Selector = styled(Select)`
+  margin: 0 20px;
+`
 
 const CountrySelector = () => {
   const { data, country, selectedCountry = { CountryCode: 'TH' }, setCountry } = useContext(
@@ -43,10 +46,10 @@ const CountrySelector = () => {
         <Flag country={selectedCountry} size={3} />
         <OverviewText>{`${country} Overview`}</OverviewText>
       </Overview>
-      <Select
+      <Selector
         showSearch
         defaultValue={country}
-        style={{ width: 200 }}
+        style={{ width: 250 }}
         placeholder="Select a country"
         optionFilterProp="children"
         onChange={handleOnChange}
@@ -59,7 +62,7 @@ const CountrySelector = () => {
             {c.Country}
           </Option>
         ))}
-      </Select>
+      </Selector>
     </Container>
   )
 }

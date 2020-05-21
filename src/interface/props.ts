@@ -75,3 +75,7 @@ export interface FlagProps {
 export interface CaseProps {
   caseData: Case
 }
+
+export interface RowGridProps {
+  item: number
+}

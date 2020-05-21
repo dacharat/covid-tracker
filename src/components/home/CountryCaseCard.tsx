@@ -1,12 +1,10 @@
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
-
-import { CountryCaseCardProps } from '@interface/props'
 import styled from 'styled-components'
 
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+import { CountryCaseCardProps } from '@interface/props'
+import { Container } from '@components/common/components'
+
+const Card = styled(Container)`
   padding: 7px 0;
 `
 const Total = styled.p`

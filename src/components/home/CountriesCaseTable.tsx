@@ -18,6 +18,15 @@ const LoadMoreView = styled.div`
   margin-top: 12;
   height: 32;
   line-height: 32px;
+  /* background: linear-gradient(to top, #ededed, #fff); */
+`
+const LoadMoreButton = styled(Button)`
+  color: #000;
+  font-weight: 600;
+  :hover {
+    color: #000;
+    font-weight: 700;
+  }
 `
 
 const columns = [
@@ -85,7 +94,9 @@ const CountriesCaseTable = () => {
       />
       {tableSource.length !== displaySize && (
         <LoadMoreView>
-          <Button onClick={onLoadMore}>loading more</Button>
+          <LoadMoreButton type="link" onClick={onLoadMore}>
+            loading more
+          </LoadMoreButton>
         </LoadMoreView>
       )}
     </div>

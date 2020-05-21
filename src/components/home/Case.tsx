@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import CountryCaseCard from './CountryCaseCard'
 import { Rate } from '@interface/types'
+import { CaseProps, RowGridProps } from '@interface/props'
 import {
   getConfirmedCase,
   getDeathsCase,
@@ -11,7 +12,6 @@ import {
   getRecoveredRate,
   getDeathsRate,
 } from '@utils/utils'
-import { CaseProps } from '@interface/props'
 import CircleProgress from './CircleProgress'
 
 const CardContainer = styled.div`
@@ -22,27 +22,23 @@ const CardContainer = styled.div`
   padding: 10px;
   grid-row-gap: 10px;
 `
-const RowCardContainer = styled.div`
-  border: 1px solid #d6d6d6;
+const RowGrid = styled.div<RowGridProps>`
   padding: 5px 0;
-  border-radius: 20px;
   display: grid;
   @media (min-width: 767px) {
     padding: 15px 0;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(${({ item }) => item}, 1fr);
   }
 `
-const RowGraphContainer = styled.div`
+const RowCardContainer = styled(RowGrid)`
+  border: 1px solid #d6d6d6;
+  border-radius: 20px;
+`
+const RowGraphContainer = styled(RowGrid)`
   width: 100%;
   max-width: 800px;
-  padding: 5px 0;
   border-radius: 20px;
-  display: grid;
   justify-items: center;
-  @media (min-width: 767px) {
-    padding: 15px 0;
-    grid-template-columns: repeat(2, 1fr);
-  }
 `
 
 const Case = ({ caseData }: CaseProps) => {
@@ -69,7 +65,7 @@ const Case = ({ caseData }: CaseProps) => {
           }
         />
 
-        <RowCardContainer>
+        <RowCardContainer item={3}>
           <CountryCaseCard
             reverseColor
             title="Confirmed"
@@ -90,7 +86,7 @@ const Case = ({ caseData }: CaseProps) => {
         </RowCardContainer>
       </CardContainer>
 
-      <RowGraphContainer>
+      <RowGraphContainer item={2}>
         <CircleProgress color="#38a169" value={rate.recoveredRate} text="Recovery Rate" />
         <CircleProgress color="#e53e3e" value={rate.deathsRate} text="Death Rate" />
       </RowGraphContainer>

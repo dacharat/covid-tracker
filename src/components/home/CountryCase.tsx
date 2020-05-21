@@ -4,11 +4,9 @@ import styled from 'styled-components'
 import { HomeContext } from '@utils/context'
 import CountrySelector from './CountrySelector'
 import Case from './Case'
+import { Container as C } from '@components/common/components'
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const Container = styled(C)`
   padding: 10px 0;
   margin: auto;
   width: 100%;
