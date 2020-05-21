@@ -2,20 +2,13 @@ import React, { memo, Fragment, useContext } from 'react'
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps'
 import { geoCentroid, geoBounds } from 'd3-geo'
 
-import { getDisplayFontSize, getLength, getCountryStatus } from '@utils/utils'
-import { GEO_URL, MAX_COMFIRMED } from '@utils/constant'
-import { MapChartProps } from '@interface/props'
+import { getDisplayFontSize, getLength, getCountryStatus, getColor } from '@utils/utils'
+import { GEO_URL } from '@utils/constant'
 import { HomeContext } from '@utils/context'
 
-const redValue = (totalConfirmed: number) => {
-  if (totalConfirmed > MAX_COMFIRMED) {
-    return 0
-  }
-  return 150 - (totalConfirmed / MAX_COMFIRMED) * 150
-}
-
-const MapChart = ({ setTooltipContent }: MapChartProps) => {
-  const countries = useContext(HomeContext).data.Countries
+const MapChart = () => {
+  const { data, setContent } = useContext(HomeContext)
+  const countries = data.Countries
 
   return (
     <ComposableMap width={1150} data-tip="" projectionConfig={{ scale: 200 }}>
@@ -33,20 +26,20 @@ const MapChart = ({ setTooltipContent }: MapChartProps) => {
                   geography={geo}
                   onMouseEnter={() => {
                     const { NAME } = geo.properties
-                    setTooltipContent(getCountryStatus(NAME, country))
+                    setContent(getCountryStatus(NAME, country))
                   }}
                   onMouseLeave={() => {
-                    setTooltipContent('')
+                    setContent('')
                   }}
                   style={{
                     default: {
-                      fill: `rgb(${redValue(country ? country.TotalConfirmed : 0)}, 255, 255)`,
+                      fill: getColor(country ? country.TotalConfirmed : 0),
                       outline: 'none',
                       stroke: '#fff',
                       strokeWidth: '0.5',
                     },
                     hover: {
-                      fill: '#00d4d4',
+                      fill: 'rgb(255,0,100)',
                       outline: 'none',
                     },
                   }}
@@ -54,10 +47,10 @@ const MapChart = ({ setTooltipContent }: MapChartProps) => {
                 <Marker
                   onMouseEnter={() => {
                     const { NAME } = geo.properties
-                    setTooltipContent(getCountryStatus(NAME, country))
+                    setContent(getCountryStatus(NAME, country))
                   }}
                   onMouseLeave={() => {
-                    setTooltipContent('')
+                    setContent('')
                   }}
                   coordinates={centroid}
                 >

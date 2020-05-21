@@ -1,12 +1,8 @@
-import { CovidResponse, Country } from '@interface/types'
+import { CovidResponse, Country, Case } from '@interface/types'
 import { ReactNode, ReactText, CSSProperties } from 'react'
 
 export interface Props {
   data: CovidResponse | null
-}
-
-export interface MapChartProps {
-  setTooltipContent: Function
 }
 
 export interface ListProps {
@@ -74,4 +70,8 @@ export interface FlagProps {
   country: Country
   size?: number
   radius?: number
+}
+
+export interface CaseProps {
+  caseData: Case
 }

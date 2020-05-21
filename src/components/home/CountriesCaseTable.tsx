@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { SIZE } from '@utils/constant'
 import { HomeContext } from '@utils/context'
 import Flag from '@components/common/Flag'
+import { numberWithCommas } from '@utils/utils'
 
 const CountryView = styled.div`
   display: flex;
@@ -23,27 +24,27 @@ const columns = [
   {
     title: '',
     dataIndex: 'key',
-    width: 50,
+    width: 45,
   },
   {
     title: 'Country',
     dataIndex: 'country',
-    width: 150,
+    width: 100,
   },
   {
-    title: 'Total Confirmed',
+    title: 'Confirmed',
     dataIndex: 'confirmedCase',
     width: 100,
   },
   {
-    title: 'Total Deaths',
-    dataIndex: 'deathsCase',
-    width: 100,
+    title: 'Recovered',
+    dataIndex: 'recoveredCase',
+    width: 90,
   },
   {
-    title: 'Total Recovered',
-    dataIndex: 'recoveredCase',
-    width: 100,
+    title: 'Deaths',
+    dataIndex: 'deathsCase',
+    width: 80,
   },
 ]
 
@@ -58,9 +59,9 @@ const CountriesCaseTable = () => {
         <div>{country.Country}</div>
       </CountryView>
     ),
-    confirmedCase: country.TotalConfirmed,
-    deathsCase: country.TotalDeaths,
-    recoveredCase: country.TotalRecovered,
+    confirmedCase: numberWithCommas(country.TotalConfirmed),
+    deathsCase: numberWithCommas(country.TotalDeaths),
+    recoveredCase: numberWithCommas(country.TotalRecovered),
   }))
 
   const [displaySize, setDisplaySize] = useState<number>(SIZE)
@@ -74,19 +75,20 @@ const CountriesCaseTable = () => {
   }
 
   return (
-    <>
+    <div>
       <Table
         columns={columns}
         dataSource={tableSource.slice(0, displaySize)}
         pagination={false}
-        scroll={{ y: 500 }}
+        scroll={{ y: 480 }}
+        size="small"
       />
       {tableSource.length !== displaySize && (
         <LoadMoreView>
           <Button onClick={onLoadMore}>loading more</Button>
         </LoadMoreView>
       )}
-    </>
+    </div>
   )
 }
 

@@ -6,6 +6,7 @@ interface HomeContextProps {
   country?: string
   setCountry?: Function
   selectedCountry?: Country
+  setContent?: Function
 }
 
 export const HomeContext = createContext<HomeContextProps>({})

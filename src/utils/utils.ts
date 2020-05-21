@@ -1,7 +1,24 @@
-import { Country } from '../interface/types'
+import { Country, Case } from '@interface/types'
+import { MAX_COMFIRMED } from './constant'
 
-const numberWithCommas = (num: number) => {
+export const numberWithCommas = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+export const getColor = (totalConfirmed: number) => {
+  switch (true) {
+    case totalConfirmed >= MAX_COMFIRMED:
+      return 'rgb(255,60,137)'
+    case totalConfirmed >= MAX_COMFIRMED * 0.8:
+      return 'rgb(255,91,155)'
+    case totalConfirmed >= MAX_COMFIRMED * 0.6:
+      return 'rgb(255,121,173)'
+    case totalConfirmed >= MAX_COMFIRMED * 0.4:
+      return 'rgb(255,166,201)'
+    case totalConfirmed >= MAX_COMFIRMED * 0.2:
+    default:
+      return 'rgb(255,181,210)'
+  }
 }
 
 export const getDisplayFontSize = (size: number) => {
@@ -34,28 +51,26 @@ const generateCountryStatus = (country: Country) => {
   `
 }
 
-export const getConfirmedCase = ({ TotalConfirmed, NewConfirmed }: Country) => {
+export const getConfirmedCase = ({ TotalConfirmed, NewConfirmed }: Case) => {
   return `${numberWithCommas(TotalConfirmed)}(+${NewConfirmed})`
 }
 
-export const getDeathsCase = ({ TotalDeaths, NewDeaths }: Country) => {
+export const getDeathsCase = ({ TotalDeaths, NewDeaths }: Case) => {
   return `${numberWithCommas(TotalDeaths)}(+${NewDeaths})`
 }
 
-export const getRecoveredCase = ({ TotalRecovered, NewRecovered }: Country) => {
+export const getRecoveredCase = ({ TotalRecovered, NewRecovered }: Case) => {
   return `${numberWithCommas(TotalRecovered)}(+${NewRecovered})`
 }
 
-export const getActiveCase = (country: Country) => {
-  const {
-    TotalConfirmed,
-    NewConfirmed,
-    TotalDeaths,
-    NewDeaths,
-    TotalRecovered,
-    NewRecovered,
-  } = country
-
+export const getActiveCase = ({
+  TotalConfirmed,
+  NewConfirmed,
+  TotalDeaths,
+  NewDeaths,
+  TotalRecovered,
+  NewRecovered,
+}: Case) => {
   const totalActived = TotalConfirmed - TotalDeaths - TotalRecovered
   const newActived = NewConfirmed - NewDeaths - NewRecovered
   const newActivedSign = newActived < 0 ? '-' : '+'
@@ -63,10 +78,10 @@ export const getActiveCase = (country: Country) => {
   return `${numberWithCommas(totalActived)}(${newActivedSign}${Math.abs(newActived)})`
 }
 
-export const getRecoveredRate = (country: Country) => {
-  return +((country.TotalRecovered * 100) / country.TotalConfirmed).toFixed(2)
+export const getRecoveredRate = ({ TotalRecovered, TotalConfirmed }: Case) => {
+  return +((TotalRecovered * 100) / TotalConfirmed).toFixed(2)
 }
 
-export const getDeathsRate = (country: Country) => {
-  return +((country.TotalDeaths * 100) / country.TotalConfirmed).toFixed(2)
+export const getDeathsRate = ({ TotalDeaths, TotalConfirmed }: Case) => {
+  return +((TotalDeaths * 100) / TotalConfirmed).toFixed(2)
 }

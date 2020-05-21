@@ -50,7 +50,7 @@ const Navbar = ({
     <NavView height={height} backgroundColor={backgroundColor}>
       <NavViewChild>
         <Header>
-          <a href="">{header}</a>
+          <a href="/">{header}</a>
         </Header>
 
         <Nav

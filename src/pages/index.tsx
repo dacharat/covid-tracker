@@ -5,19 +5,15 @@ import ReactTooltip from 'react-tooltip'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import { Props } from '../interface/props'
-import MapChart from '@components/home/MapChart'
+import { Props } from '@interface/props'
+import { Country } from '@interface/types'
 import CountryCase from '@components/home/CountryCase'
-import CountriesCaseTable from '@components/home/CountriesCaseTable'
 import NavBar, { ElementsWrapper } from '@components/common/Navbar'
 import { HomeContext } from '@utils/context'
-import { Country, CovidResponse } from '@interface/types'
 
-// import { mock } from '@utils/mock'
+import { mock } from '@utils/mock'
+import GlobalCase from '@components/home/GlobalCase'
 
-const MapView = styled.div`
-  border: 1px solid #000;
-`
 const Header = styled.h1`
   margin: 0;
   padding: 0 5px;
@@ -31,23 +27,22 @@ const HeaderView = styled.div`
   flex-direction: row;
 `
 const Container = styled.div`
-  margin: auto;
-  width: 100%;
-  max-width: 1250px;
+  /* background: linear-gradient(to bottom, #fbd3e9, #fff); */
+  /* background: linear-gradient(tso bottom, #a1ffce, #fff); */
+`
+const Container2 = styled.div`
+  /* background: linear-gradient(to top, #fbd3e9, #fff); */
+  /* background: linear-gradient(to top, #a1ffce, #fff); */
 `
 
 const navbarItems = [
   {
-    label: 'Overview',
-    target: 'overview',
+    label: 'Country',
+    target: 'Country',
   },
   {
-    label: 'World Map',
-    target: 'world-map',
-  },
-  {
-    label: 'World Table',
-    target: 'world-table',
+    label: 'World',
+    target: 'world',
   },
 ]
 
@@ -62,7 +57,7 @@ const App = ({ data }: Props) => {
   }, [country])
 
   return (
-    <HomeContext.Provider value={{ data, country, setCountry, selectedCountry }}>
+    <HomeContext.Provider value={{ data, country, setCountry, selectedCountry, setContent }}>
       <NavBar
         header={
           <HeaderView>
@@ -76,29 +71,29 @@ const App = ({ data }: Props) => {
         delay={0}
         height={60}
       />
-      <Container>
-        <ElementsWrapper items={navbarItems}>
+
+      <ElementsWrapper items={navbarItems}>
+        <Container>
           <CountryCase />
-          <MapView>
-            <MapChart setTooltipContent={setContent} />
-          </MapView>
-          <CountriesCaseTable />
-        </ElementsWrapper>
-        <ReactTooltip border multiline type="light" html={true}>
-          {content}
-        </ReactTooltip>
-      </Container>
+        </Container>
+        <Container2>
+          <GlobalCase />
+        </Container2>
+      </ElementsWrapper>
+      <ReactTooltip border multiline type="light" html={true}>
+        {content}
+      </ReactTooltip>
     </HomeContext.Provider>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await axios.get('https://api.covid19api.com/summary')
-  data.Countries = data.Countries.sort(
-    (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
-  )
-  // const data = mock
-  // data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
+  // const { data } = await axios.get('https://api.covid19api.com/summary')
+  // data.Countries = data.Countries.sort(
+  //   (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
+  // )
+  const data = mock
+  data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
   return { props: { data } }
 }
 

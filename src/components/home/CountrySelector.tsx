@@ -4,6 +4,7 @@ import { Select } from 'antd'
 
 import { HomeContext } from '@utils/context'
 import Flag from '@components/common/Flag'
+import { OverviewText } from '@components/common/components'
 
 const { Option } = Select
 
@@ -24,10 +25,6 @@ const Overview = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-`
-const OverviewText = styled.h1`
-  font-size: calc(18px + 13 * ((100vw - 200px) / (1600 - 300)));
-  margin: 0;
 `
 
 const CountrySelector = () => {
