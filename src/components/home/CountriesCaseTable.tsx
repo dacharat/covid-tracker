@@ -7,28 +7,6 @@ import { HomeContext } from '@utils/context'
 import Flag from '@components/common/Flag'
 import { numberWithCommas } from '@utils/utils'
 
-const CountryView = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-`
-const LoadMoreView = styled.div`
-  text-align: center;
-  margin-top: 12;
-  height: 32;
-  line-height: 32px;
-  /* background: linear-gradient(to top, #ededed, #fff); */
-`
-const LoadMoreButton = styled(Button)`
-  color: #000;
-  font-weight: 600;
-  :hover {
-    color: #000;
-    font-weight: 700;
-  }
-`
-
 const columns = [
   {
     title: '',
@@ -57,6 +35,32 @@ const columns = [
   },
 ]
 
+const CountryView = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+`
+const LoadMoreView = styled.div`
+  text-align: center;
+  margin-top: 12;
+  height: 32;
+  line-height: 32px;
+  border-bottom: 1px solid #d6d6d6;
+`
+const LoadMoreButton = styled(Button)`
+  color: #000;
+  font-weight: 600;
+  :hover {
+    color: #000;
+    font-weight: 700;
+  }
+`
+const TableView = styled.div`
+  overflow-x: auto;
+  width: 100%;
+`
+
 const CountriesCaseTable = () => {
   const { data } = useContext(HomeContext)
   const countries = data.Countries
@@ -84,7 +88,7 @@ const CountriesCaseTable = () => {
   }
 
   return (
-    <div>
+    <TableView>
       <Table
         columns={columns}
         dataSource={tableSource.slice(0, displaySize)}
@@ -99,7 +103,7 @@ const CountriesCaseTable = () => {
           </LoadMoreButton>
         </LoadMoreView>
       )}
-    </div>
+    </TableView>
   )
 }
 

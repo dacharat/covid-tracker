@@ -9,7 +9,8 @@
         "alias": {
           "@components": "./src/components",
           "@utils": "./src/utils",
-          "@interface": "./src/interface"
+          "@interface": "./src/interface",
+          "@hooks": "./src/hooks"
         }
       }
     ],

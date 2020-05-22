@@ -81,3 +81,8 @@ export interface CaseProps {
 export interface CaseTextProps {
   size?: string
 }
+
+export interface BarProps {
+  title: string
+  data: any
+}

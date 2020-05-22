@@ -5,6 +5,14 @@ export const numberWithCommas = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
+export const getLimitTextByLength = (text: string, length = 15) => {
+  if (text.length > length) {
+    return `${text.slice(0, length)}...`
+  } else {
+    return text
+  }
+}
+
 export const getColor = (totalConfirmed: number) => {
   switch (true) {
     case totalConfirmed >= MAX_COMFIRMED:

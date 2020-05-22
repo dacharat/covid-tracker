@@ -4,6 +4,8 @@ import { AppProps } from 'next/app'
 import 'antd/dist/antd.css'
 import 'react-circular-progressbar/dist/styles.css'
 
+import Footer from '@components/common/Footer'
+
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
@@ -13,6 +15,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Component {...pageProps} />
+      <Footer />
     </>
   )
 }

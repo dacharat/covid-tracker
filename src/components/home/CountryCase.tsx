@@ -5,7 +5,6 @@ import { HomeContext } from '@utils/context'
 import CountrySelector from './CountrySelector'
 import Case from './Case'
 import { Container as C } from '@components/common/components'
-import TopCountry from './TopCountries'
 
 const Container = styled(C)`
   padding: 10px 0;
