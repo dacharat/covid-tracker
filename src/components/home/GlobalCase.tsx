@@ -7,6 +7,7 @@ import { HomeContext } from '@utils/context'
 import Case from './Case'
 import MapChart from './MapChart'
 import CountriesCaseTable from './CountriesCaseTable'
+import TopCountriesBar from './TopCountriesBar'
 
 const Container = styled(C)`
   width: 100%;
@@ -46,6 +47,8 @@ const GlobalCase = () => {
         <CountriesCaseTable />
         <MapChart />
       </MapView>
+
+      <TopCountriesBar />
     </Container>
   )
 }

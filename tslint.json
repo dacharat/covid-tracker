@@ -19,6 +19,7 @@
     "react-hooks-nesting": true,
     "semicolon": [true, "never"],
     "allowElseIf": true,
-    "no-else-after-return": false
+    "no-else-after-return": false,
+    "ter-arrow-parens": false
   }
 }
