@@ -1,5 +1,6 @@
-import { Country, Case } from '@interface/v1/types'
 import { MAX_COMFIRMED } from './constant'
+import { Case } from '@interface/types'
+import { Country } from '@interface/props'
 
 export const numberWithCommas = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -51,45 +52,36 @@ export const getCountryStatus = (name: string, country: Country) => {
 }
 
 const generateCountryStatus = (country: Country) => {
-  return `Country: ${country.Country}<br />
-  Date: ${new Date(country.Date).toLocaleDateString('th-TH')}<br />
+  return `Country: ${country.country}<br />
+  Date: ${new Date(country.updated).toLocaleDateString('th-TH')}<br />
   TotalConfirmed: ${getConfirmedCase(country)}<br />
   TotalDeaths: ${getDeathsCase(country)}<br />
   TotalRecovered: ${getRecoveredCase(country)}<br />
   `
 }
 
-export const getConfirmedCase = ({ TotalConfirmed, NewConfirmed }: Case) => {
-  return `${numberWithCommas(TotalConfirmed)}(+${NewConfirmed})`
+export const getConfirmedCase = ({ cases, todayCases }: Case) => {
+  return `${numberWithCommas(cases)}(+${todayCases})`
 }
 
-export const getDeathsCase = ({ TotalDeaths, NewDeaths }: Case) => {
-  return `${numberWithCommas(TotalDeaths)}(+${NewDeaths})`
+export const getDeathsCase = ({ deaths, todayDeaths }: Case) => {
+  return `${numberWithCommas(deaths)}(+${todayDeaths})`
 }
 
-export const getRecoveredCase = ({ TotalRecovered, NewRecovered }: Case) => {
-  return `${numberWithCommas(TotalRecovered)}(+${NewRecovered})`
+export const getRecoveredCase = ({ recovered, todayRecovered }: Case) => {
+  return `${numberWithCommas(recovered)}(+${todayRecovered})`
 }
 
-export const getActiveCase = ({
-  TotalConfirmed,
-  NewConfirmed,
-  TotalDeaths,
-  NewDeaths,
-  TotalRecovered,
-  NewRecovered,
-}: Case) => {
-  const totalActived = TotalConfirmed - TotalDeaths - TotalRecovered
-  const newActived = NewConfirmed - NewDeaths - NewRecovered
-  const newActivedSign = newActived < 0 ? '-' : '+'
+export const getActiveCase = ({ active, todayActived }: Case) => {
+  const newActivedSign = todayActived < 0 ? '-' : '+'
 
-  return `${numberWithCommas(totalActived)}(${newActivedSign}${Math.abs(newActived)})`
+  return `${numberWithCommas(active)}(${newActivedSign}${Math.abs(todayActived)})`
 }
 
-export const getRecoveredRate = ({ TotalRecovered, TotalConfirmed }: Case) => {
-  return +((TotalRecovered * 100) / TotalConfirmed).toFixed(2)
+export const getRecoveredRate = ({ recovered, cases }: Case) => {
+  return +((recovered * 100) / cases).toFixed(2)
 }
 
-export const getDeathsRate = ({ TotalDeaths, TotalConfirmed }: Case) => {
-  return +((TotalDeaths * 100) / TotalConfirmed).toFixed(2)
+export const getDeathsRate = ({ deaths, cases }: Case) => {
+  return +((deaths * 100) / cases).toFixed(2)
 }

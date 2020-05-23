@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Nav from './Nav'
 import ElementsWrapper from './ElementsWrapper'
 import Hamburger from './Hamburger'
-import { NavViewProps, NavBarProps } from '@interface/v1/props'
+import { NavViewProps, NavBarProps } from '@interface/props'
 
 const NavView = styled.div<NavViewProps>`
   height: ${({ height }) => (height ? `${height}px` : '70px')};

@@ -3,9 +3,9 @@ import { Button, Table } from 'antd'
 import styled from 'styled-components'
 
 import { SIZE } from '@utils/constant'
-import { HomeV1Context } from '@utils/context'
-import Flag from '@components/common/Flag'
+import { HomeContext } from '@utils/context'
 import { numberWithCommas } from '@utils/utils'
+import Flag from '@components/common/Flag'
 
 const columns = [
   {
@@ -62,19 +62,18 @@ const TableView = styled.div`
 `
 
 const CountriesCaseTable = () => {
-  const { data } = useContext(HomeV1Context)
-  const countries = data.Countries
+  const { countries } = useContext(HomeContext)
   const tableSource = countries.map((country, i) => ({
     key: i + 1,
     country: (
       <CountryView>
-        <Flag country={country} size={2} radius={10} />
-        <div>{country.Country}</div>
+        <Flag countryCode={country.countryInfo.iso2} size={2} radius={10} />
+        <div>{country.country}</div>
       </CountryView>
     ),
-    confirmedCase: numberWithCommas(country.TotalConfirmed),
-    deathsCase: numberWithCommas(country.TotalDeaths),
-    recoveredCase: numberWithCommas(country.TotalRecovered),
+    confirmedCase: numberWithCommas(country.cases),
+    deathsCase: numberWithCommas(country.deaths),
+    recoveredCase: numberWithCommas(country.recovered),
   }))
 
   const [displaySize, setDisplaySize] = useState<number>(SIZE)

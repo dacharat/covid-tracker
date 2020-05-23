@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { Element } from 'react-scroll'
 import styled from 'styled-components'
 
-import { ElementsWrapperProps } from '@interface/v1/props'
+import { ElementsWrapperProps } from '@interface/props'
 
 const Container = styled.div`
   margin-top: 60px;

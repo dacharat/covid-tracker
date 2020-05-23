@@ -1,9 +1,9 @@
 import { ArrowUpOutlined, ArrowDownOutlined, LoadingOutlined } from '@ant-design/icons'
 import styled, { keyframes } from 'styled-components'
 
-import { CountryCaseCardProps, CaseTextProps } from '@interface/v1/props'
 import { Container } from '@components/common/components'
 import { numberWithCommas } from '@utils/utils'
+import { CaseTextProps, CountryCaseCardProps } from '@interface/props'
 
 const bounce = keyframes`
   0%,

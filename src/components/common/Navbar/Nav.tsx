@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import NavItem from './NavItem'
-import { NavProps } from '@interface/v1/props'
+import { NavProps } from '@interface/props'
 
 const DEFAULT_NAV_WIDTH = 86
 

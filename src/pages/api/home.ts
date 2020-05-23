@@ -1,17 +1,26 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { getGlobalCase, getCountryByName } from '@utils/api'
+import { getGlobalCase, getCountries } from '@utils/api'
 
 const getHome = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
+    const key = req.query.sortBy as string
+
     try {
       const global = await getGlobalCase()
-      const country = await getCountryByName('thailand')
+      const countries = await getCountries(true)
 
-      res.json({
-        global,
-        country,
-      })
+      if (key) {
+        res.json({
+          global,
+          countries: countries.sort((countryA, countryB) => countryB[key] - countryA[key]),
+        })
+      } else {
+        res.json({
+          global,
+          countries,
+        })
+      }
     } catch (e) {
       res.status(429).json({ message: e })
     }

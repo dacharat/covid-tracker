@@ -1,4 +1,4 @@
-export interface Global {
+export interface Default {
   updated: number
   cases: number
   todayCases: number
@@ -6,6 +6,9 @@ export interface Global {
   todayDeaths: number
   recovered: number
   active: number
+}
+
+export interface Additional {
   critical: number
   casesPerOneMillion: number
   deathsPerOneMillion: number
@@ -17,6 +20,7 @@ export interface Global {
   criticalPerOneMillion: number
   affectedCountries: number
 }
+export interface Global extends Default, Additional {}
 
 export interface AllResponse {
   data: Global
@@ -31,9 +35,12 @@ interface CountryInfo {
   flag: string
 }
 
-export interface Country extends Global {
+export interface DefaultCountry extends Default {
   country: string
   countryInfo: CountryInfo
+}
+
+export interface Country extends Additional, DefaultCountry {
   continent: string
 }
 

@@ -1,14 +1,14 @@
 import ReactCountryFlag from 'react-country-flag'
 import styled from 'styled-components'
 
-import { FlagProps } from '@interface/v1/props'
+import { FlagProps } from '@interface/props'
 
 const CountryFlag = styled(ReactCountryFlag)`
   border-radius: ${({ radius }) => `${radius}px`};
   padding: 0 5px;
 `
 
-const Flag = ({ country, size = 1, radius = 0 }: FlagProps) => {
+const Flag = ({ countryCode, size = 1, radius = 0 }: FlagProps) => {
   return (
     <CountryFlag
       svg
@@ -17,7 +17,7 @@ const Flag = ({ country, size = 1, radius = 0 }: FlagProps) => {
         width: `${size}em`,
         height: `${size}em`,
       }}
-      countryCode={country.CountryCode}
+      countryCode={countryCode}
     />
   )
 }

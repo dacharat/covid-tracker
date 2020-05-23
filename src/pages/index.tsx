@@ -4,13 +4,13 @@ import { GetServerSideProps } from 'next'
 import ReactTooltip from 'react-tooltip'
 import styled from 'styled-components'
 
-import CountryCase from '@components/v1/CountryCase'
 import NavBar, { ElementsWrapper } from '@components/common/Navbar'
-import { HomeV1Context, HomeContext } from '@utils/context'
+import { HomeContext } from '@utils/context'
 
-import GlobalCase from '@components/v1/GlobalCase'
 import { internalAPI } from '@utils/constant'
-import { HomeProps } from '@interface/props'
+import { HomeProps, Country } from '@interface/props'
+import CountryCase from '@components/home/CountryCase'
+import GlobalCase from '@components/home/GlobalCase'
 
 const Header = styled.h1`
   margin: 0;
@@ -36,19 +36,19 @@ const navbarItems = [
   },
 ]
 
-const App = ({ global, country, countries }: HomeProps) => {
+const App = ({ global, countries }: HomeProps) => {
   const [content, setContent] = useState('')
-  // const [country, setCountry] = useState<string>('Thailand')
-  // const [selectedCountry, setSelectedCountry] = useState<Country>()
+  const [country, setCountry] = useState<string>('Thailand')
+  const [selectedCountry, setSelectedCountry] = useState<Country>()
 
-  // useEffect(() => {
-  //   const selected = data.Countries.find(c => c.Country === country)
-  //   setSelectedCountry(selected)
-  // }, [country])
+  useEffect(() => {
+    const selected = countries.find(c => c.country === country)
+    setSelectedCountry(selected)
+  }, [country])
 
   return (
     <HomeContext.Provider
-      value={{ global, setContent, selectedCountry: country, countriesName: countries }}
+      value={{ global, setContent, selectedCountry, setCountry, country, countries }}
     >
       <NavBar
         header={
@@ -65,10 +65,8 @@ const App = ({ global, country, countries }: HomeProps) => {
       />
 
       <ElementsWrapper items={navbarItems}>
-        {/* <CountryCase />
-        <GlobalCase /> */}
-        <div></div>
-        <div></div>
+        <CountryCase />
+        <GlobalCase />
       </ElementsWrapper>
 
       <ReactTooltip border multiline type="light" html={true}>
@@ -79,10 +77,9 @@ const App = ({ global, country, countries }: HomeProps) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await internalAPI.get('/home')
-  const { data: name } = await internalAPI.get('/countriesName')
+  const { data } = await internalAPI.get('/home?sortBy=cases')
 
-  return { props: { ...data, ...name } }
+  return { props: { ...data } }
 }
 
 export default App

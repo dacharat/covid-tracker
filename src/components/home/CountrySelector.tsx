@@ -2,9 +2,9 @@ import { useContext } from 'react'
 import styled from 'styled-components'
 import { Select } from 'antd'
 
-import { HomeV1Context } from '@utils/context'
 import Flag from '@components/common/Flag'
 import { OverviewText } from '@components/common/components'
+import { HomeContext } from '@utils/context'
 
 const { Option } = Select
 
@@ -31,10 +31,7 @@ const Selector = styled(Select)`
 `
 
 const CountrySelector = () => {
-  const { data, country, selectedCountry = { CountryCode: 'TH' }, setCountry } = useContext(
-    HomeV1Context,
-  )
-  const countries = data.Countries
+  const { countries, setCountry, country } = useContext(HomeContext)
 
   const handleOnChange = (value: string) => {
     setCountry(value)
@@ -43,12 +40,12 @@ const CountrySelector = () => {
   return (
     <Container>
       <Overview>
-        <Flag country={selectedCountry} size={3} />
+        <Flag countryCode="TH" size={3} />
         <OverviewText>{`${country} Overview`}</OverviewText>
       </Overview>
       <Selector
         showSearch
-        defaultValue={country}
+        defaultValue={'Thailand'}
         style={{ width: 250 }}
         placeholder="Select a country"
         optionFilterProp="children"
@@ -57,9 +54,9 @@ const CountrySelector = () => {
         //   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
         // }
       >
-        {countries.map(c => (
-          <Option key={c.CountryCode} value={c.Country}>
-            {c.Country}
+        {countries.map(country => (
+          <Option key={country.slug} value={country.country}>
+            {country.country}
           </Option>
         ))}
       </Selector>

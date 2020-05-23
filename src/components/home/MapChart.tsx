@@ -4,11 +4,10 @@ import { geoCentroid, geoBounds } from 'd3-geo'
 
 import { getDisplayFontSize, getLength, getCountryStatus, getColor } from '@utils/utils'
 import { GEO_URL } from '@utils/constant'
-import { HomeV1Context } from '@utils/context'
+import { HomeContext } from '@utils/context'
 
 const MapChart = () => {
-  const { data, setContent } = useContext(HomeV1Context)
-  const countries = data.Countries
+  const { countries, setContent } = useContext(HomeContext)
 
   return (
     <ComposableMap width={1150} data-tip="" projectionConfig={{ scale: 200 }}>
@@ -18,7 +17,7 @@ const MapChart = () => {
             const centroid = geoCentroid(geo)
             const bound = geoBounds(geo)
             const size = getLength(bound[1][0], bound[0][0])
-            const country = countries.find(c => c.CountryCode === geo.properties.ISO_A2)
+            const country = countries.find(c => c.countryInfo.iso2 === geo.properties.ISO_A2)
 
             return (
               <Fragment key={geo.rsmKey}>
@@ -33,7 +32,7 @@ const MapChart = () => {
                   }}
                   style={{
                     default: {
-                      fill: getColor(country ? country.TotalConfirmed : 0),
+                      fill: getColor(country ? country.cases : 0),
                       outline: 'none',
                       stroke: '#fff',
                       strokeWidth: '0.5',

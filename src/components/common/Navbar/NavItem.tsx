@@ -1,7 +1,7 @@
 import { Link } from 'react-scroll'
 import styled from 'styled-components'
 
-import { ListProps, NavItemProps } from '@interface/v1/props'
+import { ListProps, NavItemProps } from '@interface/props'
 
 const List = styled.li<ListProps>`
   width: ${({ width }) => `${width}px`};

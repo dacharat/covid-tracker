@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-import { Rate } from '@interface/v1/types'
-import { CaseProps } from '@interface/v1/props'
 import { getRecoveredRate, getDeathsRate } from '@utils/utils'
 import { COLOR } from '@utils/constant'
-import CircleProgress from './CircleProgress'
 import CountryCaseCard from '@components/common/CountryCaseCard'
+import { CaseProps } from '@interface/props'
+import { Rate } from '@interface/types'
+import CircleProgress from './CircleProgress'
 
 const RowGraphContainer = styled.div`
   width: 100%;
@@ -43,14 +43,26 @@ const CaseContainer = styled.div`
 
 const Case = ({
   caseData = {
-    NewConfirmed: undefined,
-    TotalConfirmed: undefined,
-    NewDeaths: undefined,
-    TotalDeaths: undefined,
-    NewRecovered: undefined,
-    TotalRecovered: undefined,
+    cases: undefined,
+    todayCases: undefined,
+    active: undefined,
+    todayActived: undefined,
+    deaths: undefined,
+    todayDeaths: undefined,
+    recovered: undefined,
+    todayRecovered: undefined,
   },
 }: CaseProps) => {
+  const {
+    cases,
+    todayCases,
+    active,
+    todayActived,
+    deaths,
+    todayDeaths,
+    recovered,
+    todayRecovered,
+  } = caseData
   const [rate, setRate] = useState<Rate>({ recoveredRate: 0, deathsRate: 0 })
 
   useEffect(() => {
@@ -69,8 +81,8 @@ const Case = ({
           <CountryCaseCard
             title="Confirmed"
             cardColor={COLOR.gradientPink}
-            totalCase={caseData.TotalConfirmed}
-            increment={caseData.NewConfirmed}
+            totalCase={cases}
+            increment={todayCases}
             caseFontSize="50px"
             increaseFontSize="25px"
           />
@@ -79,20 +91,20 @@ const Case = ({
         <CountryCaseCard
           title="Actived"
           cardColor={COLOR.gradientYellow}
-          totalCase={caseData.TotalConfirmed - caseData.TotalRecovered - caseData.TotalDeaths}
-          increment={caseData.NewConfirmed - caseData.NewRecovered - caseData.NewDeaths}
+          totalCase={active}
+          increment={todayActived}
         />
         <CountryCaseCard
           title="Recovered"
           cardColor={COLOR.gradientGreen}
-          totalCase={caseData.TotalRecovered}
-          increment={caseData.NewRecovered}
+          totalCase={recovered}
+          increment={todayRecovered}
         />
         <CountryCaseCard
           title="Death"
           cardColor={COLOR.gradientRed}
-          totalCase={caseData.TotalDeaths}
-          increment={caseData.NewDeaths}
+          totalCase={deaths}
+          increment={todayDeaths}
         />
       </CaseCardGrid>
 

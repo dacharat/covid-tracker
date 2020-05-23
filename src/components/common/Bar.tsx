@@ -1,7 +1,7 @@
 import { HorizontalBar } from 'react-chartjs-2'
 import styled from 'styled-components'
 
-import { BarProps } from '@interface/v1/props'
+import { BarProps } from '@interface/props'
 
 const BarName = styled.p`
   margin: 5px 0;

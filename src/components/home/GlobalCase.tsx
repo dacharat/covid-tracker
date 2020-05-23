@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 import { OverviewText, Container as C } from '@components/common/components'
 import Bar from '@components/common/Bar'
-import { HomeV1Context } from '@utils/context'
 import { COLOR } from '@utils/constant'
 import { getLimitTextByLength } from '@utils/utils'
 import useWindowDimensions from '@hooks/useWindowDimensions'
@@ -11,6 +10,7 @@ import useWindowDimensions from '@hooks/useWindowDimensions'
 import Case from './Case'
 import MapChart from './MapChart'
 import CountriesCaseTable from './CountriesCaseTable'
+import { HomeContext } from '@utils/context'
 
 const Container = styled(C)`
   width: 100%;
@@ -48,9 +48,7 @@ const BarView = styled.div`
 `
 
 const GlobalCase = () => {
-  const { data } = useContext(HomeV1Context)
-  const global = data.Global
-  const countries = data.Countries
+  const { global, countries } = useContext(HomeContext)
   const { width } = useWindowDimensions()
 
   const getCountryName = (name: string) => {
@@ -83,14 +81,11 @@ const GlobalCase = () => {
     }
 
     countries.slice(0, 10).map(country => {
-      const { Country, TotalConfirmed, TotalRecovered, TotalDeaths } = country
-      topCountry.labels = [...topCountry.labels, getCountryName(Country)]
-      topCountry.datasets[0].data = [
-        ...topCountry.datasets[0].data,
-        TotalConfirmed - TotalRecovered - TotalDeaths,
-      ]
-      topCountry.datasets[1].data = [...topCountry.datasets[1].data, TotalRecovered]
-      topCountry.datasets[2].data = [...topCountry.datasets[2].data, TotalDeaths]
+      const { country: name, recovered, deaths, active } = country
+      topCountry.labels = [...topCountry.labels, getCountryName(name)]
+      topCountry.datasets[0].data = [...topCountry.datasets[0].data, active]
+      topCountry.datasets[1].data = [...topCountry.datasets[1].data, recovered]
+      topCountry.datasets[2].data = [...topCountry.datasets[2].data, deaths]
     })
 
     return topCountry
@@ -120,13 +115,13 @@ const GlobalCase = () => {
         },
       ],
     }
-    const top = [...countries].sort((a, b) => b.NewConfirmed - a.NewConfirmed).slice(0, 10)
+    const top = [...countries].sort((a, b) => b.todayCases - a.todayCases).slice(0, 10)
     top.map(country => {
-      const { Country, NewConfirmed, NewDeaths, NewRecovered } = country
-      topConfirmed.labels = [...topConfirmed.labels, getCountryName(Country)]
-      topConfirmed.datasets[0].data = [...topConfirmed.datasets[0].data, NewConfirmed]
-      topConfirmed.datasets[1].data = [...topConfirmed.datasets[1].data, NewRecovered]
-      topConfirmed.datasets[2].data = [...topConfirmed.datasets[2].data, NewDeaths]
+      const { country: name, todayCases, todayDeaths, todayRecovered } = country
+      topConfirmed.labels = [...topConfirmed.labels, getCountryName(name)]
+      topConfirmed.datasets[0].data = [...topConfirmed.datasets[0].data, todayCases]
+      topConfirmed.datasets[1].data = [...topConfirmed.datasets[1].data, todayRecovered]
+      topConfirmed.datasets[2].data = [...topConfirmed.datasets[2].data, todayDeaths]
     })
 
     return topConfirmed

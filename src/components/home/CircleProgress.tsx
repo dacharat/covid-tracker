@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 
-import { CircleProgressProps } from '@interface/v1/props'
+import { CircleProgressProps } from '@interface/props'
 import { Container as C } from '@components/common/components'
 
 const Container = styled(C)`
