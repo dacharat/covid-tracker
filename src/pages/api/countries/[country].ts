@@ -8,14 +8,36 @@ const getCountry = async (req: NextApiRequest, res: NextApiResponse) => {
     const country = req.query.country as string
     try {
       const countryData = await getCountryByName(country)
-      const { data: historical }: HistoricalResponse = await diseaseAPI.get(
-        `/v2/historical/${countryData.countryInfo.iso2}?lastdays=${500}`,
-      )
 
-      res.json({
-        ...countryData,
-        timeline: historical ? historical.timeline : [],
-      })
+      try {
+        const { data: historical }: HistoricalResponse = await diseaseAPI.get(
+          `/v2/historical/${countryData.countryInfo.iso2}?lastdays=${500}`,
+        )
+
+        const { cases: casesobj, recovered: recoveredobj, deaths: deathsobj } = historical.timeline
+        const cases = Object.keys(casesobj).map(c => ({
+          date: c,
+          value: casesobj[c],
+        }))
+        const recovered = Object.keys(recoveredobj).map(c => ({
+          date: c,
+          value: recoveredobj[c],
+        }))
+        const deaths = Object.keys(deathsobj).map(c => ({
+          date: c,
+          value: deathsobj[c],
+        }))
+
+        res.json({
+          ...countryData,
+          timeline: { cases, recovered, deaths },
+        })
+      } catch {
+        res.json({
+          ...countryData,
+          timeline: null,
+        })
+      }
     } catch (e) {
       res.status(429).json({ message: e })
     }

@@ -15,8 +15,13 @@ const Text = styled.p`
   margin: 0;
   padding: 7px 0;
 `
+const Description = styled.p`
+  font-size: 10px;
+  font-weight: 300;
+  margin: 0;
+`
 
-const CircleProgress = ({ value, text, color = '#4db0f7' }: CircleProgressProps) => {
+const CircleProgress = ({ value, text, color = '#4db0f7', description }: CircleProgressProps) => {
   return (
     <Container>
       <CircularProgressbar
@@ -29,6 +34,7 @@ const CircleProgress = ({ value, text, color = '#4db0f7' }: CircleProgressProps)
         strokeWidth={8}
       />
       <Text>{text}</Text>
+      {description && <Description>{`*${description}`}</Description>}
     </Container>
   )
 }

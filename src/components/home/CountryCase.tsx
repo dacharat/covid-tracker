@@ -40,7 +40,7 @@ const CountryCase = () => {
       <Case caseData={selectedCountry} />
       {selectedCountry && (
         <SeeMoreView>
-          <Link href={`/countries/${selectedCountry.slug}`}>
+          <Link as={`/countries/${selectedCountry.slug}`} href="/countries/[country]">
             <SeeMore>See More</SeeMore>
           </Link>
         </SeeMoreView>

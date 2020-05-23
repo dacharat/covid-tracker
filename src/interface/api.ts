@@ -52,23 +52,29 @@ export interface CountryResponse {
   data: Country
 }
 
-interface CaseObject {
-  key: string
-  value: number
-}
-
-export interface Timeline {
-  cases: CaseObject[]
-  deaths: CaseObject[]
-  recovered: CaseObject[]
+export interface TimelineObject {
+  cases: object
+  deaths: object
+  recovered: object
 }
 
 export interface Historical {
   country: string
   province: string[]
-  timeline: Timeline
+  timeline: TimelineObject
 }
 
 export interface HistoricalResponse {
   data: Historical
+}
+
+interface Time {
+  date: string
+  value: number
+}
+
+export interface Timeline {
+  cases: Time[]
+  deaths: Time[]
+  recovered: Time[]
 }

@@ -1,9 +1,13 @@
 import { MAX_COMFIRMED } from './constant'
-import { Case } from '@interface/types'
+import { Case, AdditionCase } from '@interface/types'
 import { Country } from '@interface/props'
 
 export const numberWithCommas = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+export const toCapitalize = (word: string) => {
+  return word[0].toUpperCase() + word.slice(1, word.length)
 }
 
 export const getLimitTextByLength = (text: string, length = 15) => {
@@ -84,4 +88,16 @@ export const getRecoveredRate = ({ recovered, cases }: Case) => {
 
 export const getDeathsRate = ({ deaths, cases }: Case) => {
   return +((deaths * 100) / cases).toFixed(2)
+}
+
+export const getInfectionRate = ({ tests, cases }: AdditionCase) => {
+  return +((cases * 100) / tests).toFixed(2)
+}
+
+export const getCriticalRate = ({ critical, active }: AdditionCase) => {
+  return +((critical * 100) / active).toFixed(2)
+}
+
+export const getTestRate = ({ tests, population }: AdditionCase) => {
+  return +((tests * 100) / population).toFixed(2)
 }

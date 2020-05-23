@@ -6,7 +6,7 @@ import { COLOR } from '@utils/constant'
 import CountryCaseCard from '@components/common/CountryCaseCard'
 import { CaseProps } from '@interface/props'
 import { Rate } from '@interface/types'
-import CircleProgress from './CircleProgress'
+import CircleProgress from '../common/CircleProgress'
 
 const RowGraphContainer = styled.div`
   width: 100%;

@@ -1,4 +1,4 @@
-import { Global as Gb, DefaultCountry } from './api'
+import { Global as Gb, DefaultCountry, Timeline, Additional } from './api'
 import { Case } from './types'
 import { ReactNode, ReactText, CSSProperties } from 'react'
 
@@ -37,6 +37,7 @@ export interface CircleProgressProps {
   value: number
   text: string
   color?: string
+  description?: string
 }
 
 export interface CountryCaseCardProps {
@@ -79,11 +80,16 @@ export interface Global extends Gb {
   todayActived: number
 }
 
-export interface Country extends DefaultCountry {
+export interface Country extends Additional, DefaultCountry {
   todayRecovered: number
   todayActived: number
   slug: string
 }
+
+export interface FullCountry extends Country {
+  timeline: Timeline
+}
+
 export interface HomeProps {
   global: Global
   countries: Country[]
@@ -97,4 +103,13 @@ export interface FlagProps {
   countryCode: string
   size?: number
   radius?: number
+}
+
+export interface CountryProps {
+  data?: FullCountry
+}
+
+export interface OverviewProps {
+  name: string
+  countryCode: string
 }
