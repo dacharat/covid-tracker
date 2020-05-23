@@ -1,5 +1,10 @@
+import axios from 'axios'
+
 export const GEO_URL =
   'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json'
+
+const API = 'https://disease.sh'
+export const diseaseAPI = axios.create({ baseURL: API })
 
 export const MAX_COMFIRMED = 500_000
 

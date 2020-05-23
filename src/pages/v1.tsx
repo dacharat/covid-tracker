@@ -11,7 +11,6 @@ import CountryCase from '@components/home/CountryCase'
 import NavBar, { ElementsWrapper } from '@components/common/Navbar'
 import { HomeContext } from '@utils/context'
 
-import { mock } from '@utils/mock'
 import GlobalCase from '@components/home/GlobalCase'
 
 const Header = styled.h1`
@@ -25,6 +24,11 @@ const Image = styled.img`
 const HeaderView = styled.div`
   display: flex;
   flex-direction: row;
+`
+const ApiView = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 `
 
 const navbarItems = [
@@ -69,6 +73,9 @@ const App = ({ data }: Props) => {
         <GlobalCase />
       </ElementsWrapper>
 
+      <ApiView>
+        Api from: <a href="https://api.covid19api.com/summary">covid19api.com</a>
+      </ApiView>
       <ReactTooltip border multiline type="light" html={true}>
         {content}
       </ReactTooltip>
@@ -77,13 +84,11 @@ const App = ({ data }: Props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // const { data } = await axios.get('https://api.covid19api.com/summary')
-  // data.Countries = data.Countries.sort(
-  //   (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
-  // )
+  const { data } = await axios.get('https://api.covid19api.com/summary')
+  data.Countries = data.Countries.sort(
+    (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
+  )
 
-  const data = mock
-  data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
   return { props: { data } }
 }
 
