@@ -1,4 +1,4 @@
-import { Country, Case } from '@interface/types'
+import { Country, Case } from '@interface/v1/types'
 import { MAX_COMFIRMED } from './constant'
 
 export const numberWithCommas = (num: number) => {

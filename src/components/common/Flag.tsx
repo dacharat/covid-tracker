@@ -1,7 +1,7 @@
 import ReactCountryFlag from 'react-country-flag'
 import styled from 'styled-components'
 
-import { FlagProps } from '@interface/props'
+import { FlagProps } from '@interface/v1/props'
 
 const CountryFlag = styled(ReactCountryFlag)`
   border-radius: ${({ radius }) => `${radius}px`};

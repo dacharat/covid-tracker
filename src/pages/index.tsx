@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { GetServerSideProps } from 'next'
 
 import ReactTooltip from 'react-tooltip'
-import axios from 'axios'
 import styled from 'styled-components'
 
-import { Props } from '@interface/props'
-import { Country } from '@interface/types'
-import CountryCase from '@components/home/CountryCase'
+import CountryCase from '@components/v1/CountryCase'
 import NavBar, { ElementsWrapper } from '@components/common/Navbar'
-import { HomeContext } from '@utils/context'
+import { HomeV1Context, HomeContext } from '@utils/context'
 
-import { mock } from '@utils/mock'
-import GlobalCase from '@components/home/GlobalCase'
+import GlobalCase from '@components/v1/GlobalCase'
+import { internalAPI } from '@utils/constant'
+import { HomeProps } from '@interface/props'
 
 const Header = styled.h1`
   margin: 0;
@@ -38,18 +36,20 @@ const navbarItems = [
   },
 ]
 
-const App = ({ data }: Props) => {
+const App = ({ global, country, countries }: HomeProps) => {
   const [content, setContent] = useState('')
-  const [country, setCountry] = useState<string>('Thailand')
-  const [selectedCountry, setSelectedCountry] = useState<Country>()
+  // const [country, setCountry] = useState<string>('Thailand')
+  // const [selectedCountry, setSelectedCountry] = useState<Country>()
 
-  useEffect(() => {
-    const selected = data.Countries.find(c => c.Country === country)
-    setSelectedCountry(selected)
-  }, [country])
+  // useEffect(() => {
+  //   const selected = data.Countries.find(c => c.Country === country)
+  //   setSelectedCountry(selected)
+  // }, [country])
 
   return (
-    <HomeContext.Provider value={{ data, country, setCountry, selectedCountry, setContent }}>
+    <HomeContext.Provider
+      value={{ global, setContent, selectedCountry: country, countriesName: countries }}
+    >
       <NavBar
         header={
           <HeaderView>
@@ -65,8 +65,10 @@ const App = ({ data }: Props) => {
       />
 
       <ElementsWrapper items={navbarItems}>
-        <CountryCase />
-        <GlobalCase />
+        {/* <CountryCase />
+        <GlobalCase /> */}
+        <div></div>
+        <div></div>
       </ElementsWrapper>
 
       <ReactTooltip border multiline type="light" html={true}>
@@ -77,14 +79,10 @@ const App = ({ data }: Props) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // const { data } = await axios.get('https://api.covid19api.com/summary')
-  // data.Countries = data.Countries.sort(
-  //   (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
-  // )
+  const { data } = await internalAPI.get('/home')
+  const { data: name } = await internalAPI.get('/countriesName')
 
-  const data = mock
-  data.Countries = data.Countries.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed)
-  return { props: { data } }
+  return { props: { ...data, ...name } }
 }
 
 export default App

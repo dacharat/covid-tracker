@@ -5,13 +5,13 @@ import ReactTooltip from 'react-tooltip'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import { Props } from '@interface/props'
-import { Country } from '@interface/types'
-import CountryCase from '@components/home/CountryCase'
+import { Props } from '@interface/v1/props'
+import { Country } from '@interface/v1/types'
+import CountryCase from '@components/v1/CountryCase'
 import NavBar, { ElementsWrapper } from '@components/common/Navbar'
-import { HomeContext } from '@utils/context'
+import { HomeV1Context } from '@utils/context'
 
-import GlobalCase from '@components/home/GlobalCase'
+import GlobalCase from '@components/v1/GlobalCase'
 
 const Header = styled.h1`
   margin: 0;
@@ -53,7 +53,7 @@ const App = ({ data }: Props) => {
   }, [country])
 
   return (
-    <HomeContext.Provider value={{ data, country, setCountry, selectedCountry, setContent }}>
+    <HomeV1Context.Provider value={{ data, country, setCountry, selectedCountry, setContent }}>
       <NavBar
         header={
           <HeaderView>
@@ -79,7 +79,7 @@ const App = ({ data }: Props) => {
       <ReactTooltip border multiline type="light" html={true}>
         {content}
       </ReactTooltip>
-    </HomeContext.Provider>
+    </HomeV1Context.Provider>
   )
 }
 

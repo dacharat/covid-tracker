@@ -6,6 +6,8 @@ export const GEO_URL =
 const API = 'https://disease.sh'
 export const diseaseAPI = axios.create({ baseURL: API })
 
+export const internalAPI = axios.create({ baseURL: `${process.env.ENDPOINT}/api` })
+
 export const MAX_COMFIRMED = 500_000
 
 export const SIZE = 10

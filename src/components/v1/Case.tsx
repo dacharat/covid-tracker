@@ -5,8 +5,8 @@ import { Rate } from '@interface/v1/types'
 import { CaseProps } from '@interface/v1/props'
 import { getRecoveredRate, getDeathsRate } from '@utils/utils'
 import { COLOR } from '@utils/constant'
+import CountryCaseCard from './CountryCaseCard'
 import CircleProgress from './CircleProgress'
-import CountryCaseCard from '@components/common/CountryCaseCard'
 
 const RowGraphContainer = styled.div`
   width: 100%;

@@ -4,7 +4,7 @@ import { MenuOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 
 import NavItem from './NavItem'
-import { NavProps } from '@interface/props'
+import { NavProps } from '@interface/v1/props'
 
 const List = styled.ul`
   list-style: none;

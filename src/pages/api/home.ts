@@ -1,17 +1,16 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { diseaseAPI } from '@utils/constant'
-import { AllResponse } from '@interface/api'
+
+import { getGlobalCase, getCountryByName } from '@utils/api'
 
 const getHome = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     try {
-      const { data: today }: AllResponse = await diseaseAPI.get('/v2/all')
-      const { data: yesterday }: AllResponse = await diseaseAPI.get('/v2/all?yesterday=true')
+      const global = await getGlobalCase()
+      const country = await getCountryByName('thailand')
 
       res.json({
-        ...today,
-        todayRecovered: today.recovered - yesterday.recovered,
-        todayActived: today.active - yesterday.active,
+        global,
+        country,
       })
     } catch (e) {
       res.status(429).json({ message: e })
