@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { NextPageContext, GetServerSideProps } from 'next'
+import { NextPageContext } from 'next'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Axios from 'axios'
@@ -14,15 +14,16 @@ import { Container as C } from '@components/common/components'
 import Case from '@components/home/Case'
 import AdditionCircleProgress from '@components/country/AdditionCircleProgress'
 import Line from '@components/country/Line'
+import DailyIncidentBar from '@components/country/DailyIncidentBar'
 
 const navbarItems = [
   {
-    label: 'Country',
-    target: 'Country',
+    label: 'Overview',
+    target: 'overview',
   },
   {
-    label: 'World',
-    target: 'world',
+    label: 'Graph',
+    target: 'graph',
   },
 ]
 
@@ -31,6 +32,13 @@ const Container = styled(C)`
   margin: auto;
   width: 100%;
   max-width: 1250px;
+`
+const ChartView = styled.div`
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 `
 
 const Country = ({ data }: CountryProps) => {
@@ -49,7 +57,6 @@ const Country = ({ data }: CountryProps) => {
     //   `http://localhost:3000/api/countries/${router.query.country}`,
     // )
     setCountry(countryData)
-    console.log(countryData)
   }
 
   return (
@@ -72,7 +79,14 @@ const Country = ({ data }: CountryProps) => {
           <Case caseData={country} />
           <AdditionCircleProgress country={country} />
         </Container>
-        <div>{country.timeline && <Line country={country} />}</div>
+        <ChartView>
+          {country.timeline && (
+            <>
+              <Line country={country} />
+              <DailyIncidentBar country={country} />
+            </>
+          )}
+        </ChartView>
       </ElementsWrapper>
     </>
   )

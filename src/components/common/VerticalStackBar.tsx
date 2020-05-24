@@ -1,7 +1,8 @@
-import { HorizontalBar } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 import styled from 'styled-components'
 
 import { BarProps } from '@interface/props'
+import { chartTooltip } from '@utils/charts'
 
 const BarName = styled.p`
   margin: 5px 0;
@@ -9,19 +10,23 @@ const BarName = styled.p`
   font-size: 20px;
 `
 
-const Bar = ({ data, title }: BarProps) => {
+const VerticalStackBar = ({ data, title }: BarProps) => {
   return (
     <div>
       <BarName>{title}</BarName>
-      <HorizontalBar
+      <Bar
         data={data}
-        width={400}
-        height={250}
         options={{
-          maintainAspectRatio: false,
           scales: {
             xAxes: [{ stacked: true, ticks: { minRotation: 45 } }],
             yAxes: [{ stacked: true }],
+          },
+          tooltips: {
+            mode: 'label',
+            position: 'nearest',
+            callbacks: {
+              label: chartTooltip,
+            },
           },
         }}
       />
@@ -29,4 +34,4 @@ const Bar = ({ data, title }: BarProps) => {
   )
 }
 
-export default Bar
+export default VerticalStackBar

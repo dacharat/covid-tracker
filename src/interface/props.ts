@@ -73,6 +73,7 @@ export interface CaseTextProps {
 export interface BarProps {
   title: string
   data: any
+  sumValue?: boolean
 }
 
 export interface Global extends Gb {

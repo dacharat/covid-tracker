@@ -15,7 +15,7 @@ import Logo from '@components/common/Logo'
 const navbarItems = [
   {
     label: 'Country',
-    target: 'Country',
+    target: 'country',
   },
   {
     label: 'World',

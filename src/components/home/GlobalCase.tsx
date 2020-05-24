@@ -2,7 +2,7 @@ import { useContext, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { OverviewText, Container as C } from '@components/common/components'
-import Bar from '@components/common/Bar'
+import HorizontalStackBar from '@components/common/HorizontalStackBar'
 import { COLOR } from '@utils/constant'
 import { getLimitTextByLength } from '@utils/utils'
 import useWindowDimensions from '@hooks/useWindowDimensions'
@@ -139,8 +139,8 @@ const GlobalCase = () => {
       </MapView>
 
       <BarView>
-        <Bar title="Top daily cases" data={topDaily} />
-        <Bar title="Top confirmed cases" data={topConfirmed} />
+        <HorizontalStackBar title="Top daily cases" data={topDaily} />
+        <HorizontalStackBar sumValue title="Top confirmed cases" data={topConfirmed} />
       </BarView>
     </Container>
   )
