@@ -13,9 +13,14 @@ const Box = styled.div`
   border: 1px solid #d6d6d6;
   border-radius: 7px;
   padding: 18px;
+  @media (max-width: 630px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 const Text = styled.p<TextProps>`
-  font-size: ${({ size }) => size || '22px'};
+  font-size: ${({ size }) => size || '24px'};
   margin: 0px;
   padding: 5px 0;
 `
@@ -23,7 +28,7 @@ const Text = styled.p<TextProps>`
 const DataPerMillionBox = ({ value, title }: DataPerMillionBoxProps) => {
   return (
     <Box>
-      <Text>{title}</Text>
+      <Text size="16px">{title}</Text>
       <Text>{value}</Text>
       <Text size="12px">Per Million Population</Text>
     </Box>

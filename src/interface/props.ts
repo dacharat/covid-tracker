@@ -113,4 +113,5 @@ export interface CountryProps {
 export interface OverviewProps {
   name: string
   countryCode: string
+  date: number
 }

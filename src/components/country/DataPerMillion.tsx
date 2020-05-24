@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+
 import { Country } from '@interface/props'
 import DataPerMillionBox from './DataPerMilionBox'
 
@@ -8,10 +9,10 @@ const Container = styled.div`
   padding: 10px;
   display: grid;
   grid-gap: 10px;
-  @media (min-width: 600px) and (max-width: 900px) {
+  @media (min-width: 360px) and (max-width: 550px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (min-width: 900px) {
+  @media (min-width: 550px) {
     grid-template-columns: repeat(3, 1fr);
   }
 `

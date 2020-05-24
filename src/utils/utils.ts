@@ -97,6 +97,10 @@ export const getDeathsRate = ({ deaths, cases }: Case) => {
   return +((deaths * 100) / cases).toFixed(2)
 }
 
+export const getActivedRate = ({ active, cases }: AdditionCase) => {
+  return +((active * 100) / cases).toFixed(2)
+}
+
 export const getInfectionRate = ({ tests, cases }: AdditionCase) => {
   return +((cases * 100) / tests).toFixed(2)
 }

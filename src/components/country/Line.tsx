@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { COLOR } from '@utils/constant'
 import { createChartProps } from '@utils/charts'
 import { FullCountry } from '@interface/props'
+import { BarName, GraphContainer } from '@components/common/components'
 
 interface LineProps {
   country: FullCountry
@@ -53,10 +54,10 @@ const Line = ({ country }: LineProps) => {
   }, [])
 
   return (
-    <div>
-      <h2>Trend of infection</h2>
+    <GraphContainer>
+      <BarName>Trend of infection</BarName>
       <LineChart {...createChartProps(data)} />
-    </div>
+    </GraphContainer>
   )
 }
 

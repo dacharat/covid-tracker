@@ -8,7 +8,7 @@ import { CaseProps } from '@interface/props'
 import { Rate } from '@interface/types'
 import CircleProgress from '../common/CircleProgress'
 
-const RowGraphContainer = styled.div`
+const GraphContainer = styled.div`
   width: 100%;
   max-width: 800px;
   justify-items: center;
@@ -108,10 +108,10 @@ const Case = ({
         />
       </CaseCardGrid>
 
-      <RowGraphContainer>
-        <CircleProgress color="#38a169" value={rate.recoveredRate} text="Recovery Rate" />
-        <CircleProgress color="#e53e3e" value={rate.deathsRate} text="Death Rate" />
-      </RowGraphContainer>
+      <GraphContainer>
+        <CircleProgress color={COLOR.green} value={rate.recoveredRate} text="Recovery Rate" />
+        <CircleProgress color={COLOR.red} value={rate.deathsRate} text="Death Rate" />
+      </GraphContainer>
     </CaseContainer>
   )
 }

@@ -16,6 +16,7 @@ const Container = styled.div`
   max-width: 900px;
   width: 100%;
   margin: 5px;
+  padding: 0 10px;
   @media (max-width: 767px) {
     flex-direction: column;
     justify-content: space-between;
@@ -31,7 +32,7 @@ const Selector = styled(Select)`
 `
 
 const CountrySelector = () => {
-  const { countries, setCountry, country } = useContext(HomeContext)
+  const { countries, setCountry, country, selectedCountry } = useContext(HomeContext)
 
   const handleOnChange = (value: string) => {
     setCountry(value)
@@ -40,7 +41,7 @@ const CountrySelector = () => {
   return (
     <Container>
       <Overview>
-        <Flag countryCode="TH" size={3} />
+        <Flag countryCode={selectedCountry?.countryInfo.iso2} size={3} />
         <OverviewText>{`${country} Overview`}</OverviewText>
       </Overview>
       <Selector
@@ -50,9 +51,6 @@ const CountrySelector = () => {
         placeholder="Select a country"
         optionFilterProp="children"
         onChange={handleOnChange}
-        // filterOption={(input, option) =>
-        //   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        // }
       >
         {countries.map(country => (
           <Option key={country.slug} value={country.country}>

@@ -26,4 +26,7 @@ export interface AdditionRate {
   infectionRate: number
   criticalRate: number
   testedRate: number
+  deathsRate: number
+  recoveredRate: number
+  activedRate: number
 }
