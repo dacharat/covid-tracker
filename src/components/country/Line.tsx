@@ -2,7 +2,7 @@ import { Line as LineChart } from 'react-chartjs-2'
 import { useMemo } from 'react'
 
 import { COLOR } from '@utils/constant'
-import { chartTooltip } from '@utils/charts'
+import { createChartProps } from '@utils/charts'
 import { FullCountry } from '@interface/props'
 
 interface LineProps {
@@ -55,18 +55,7 @@ const Line = ({ country }: LineProps) => {
   return (
     <div>
       <h2>Trend of infection</h2>
-      <LineChart
-        data={data}
-        options={{
-          tooltips: {
-            mode: 'label',
-            position: 'nearest',
-            callbacks: {
-              label: chartTooltip,
-            },
-          },
-        }}
-      />
+      <LineChart {...createChartProps(data)} />
     </div>
   )
 }

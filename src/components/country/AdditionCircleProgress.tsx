@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import CircleProgress from '@components/common/CircleProgress'
 import { AdditionRate } from '@interface/types'
 import { FullCountry } from '@interface/props'
-import { getInfectionRate, getCriticalRate, getTestRate } from '@utils/utils'
+import { getInfectionRate, getCriticalRate, getTestRate, isEmpty } from '@utils/utils'
 
 interface AdditionCircleProgressProps {
   country: FullCountry
@@ -31,7 +31,7 @@ const AdditionCircleProgress = ({ country }: AdditionCircleProgressProps) => {
   })
 
   useEffect(() => {
-    if (country) {
+    if (!isEmpty(country)) {
       setRate({
         infectionRate: getInfectionRate({ tests, cases }),
         criticalRate: getCriticalRate({ critical, active }),

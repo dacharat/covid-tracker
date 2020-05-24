@@ -18,6 +18,13 @@ export const getLimitTextByLength = (text: string, length = 15) => {
   }
 }
 
+export const isEmpty = (obj: object) => {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) return false
+  }
+  return true
+}
+
 export const getColor = (totalConfirmed: number) => {
   switch (true) {
     case totalConfirmed >= MAX_COMFIRMED:

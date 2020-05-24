@@ -6,7 +6,7 @@ import Axios from 'axios'
 
 import { internalAPI } from '@utils/constant'
 import { CountryProps } from '@interface/props'
-import { toCapitalize } from '@utils/utils'
+import { toCapitalize, isEmpty } from '@utils/utils'
 import Logo from '@components/common/Logo'
 import Navbar, { ElementsWrapper } from '@components/common/Navbar'
 import Overview from '@components/country/Overview'
@@ -15,6 +15,7 @@ import Case from '@components/home/Case'
 import AdditionCircleProgress from '@components/country/AdditionCircleProgress'
 import Line from '@components/country/Line'
 import DailyIncidentBar from '@components/country/DailyIncidentBar'
+import DataPerMillion from '@components/country/DataPerMillion'
 
 const navbarItems = [
   {
@@ -46,7 +47,7 @@ const Country = ({ data }: CountryProps) => {
   const [country, setCountry] = useState(data)
 
   useEffect(() => {
-    if (!data.country) {
+    if (!isEmpty(data)) {
       fetchCountry()
     }
   }, [])
@@ -78,6 +79,7 @@ const Country = ({ data }: CountryProps) => {
           />
           <Case caseData={country} />
           <AdditionCircleProgress country={country} />
+          <DataPerMillion country={country} />
         </Container>
         <ChartView>
           {country.timeline && (

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-import { getRecoveredRate, getDeathsRate } from '@utils/utils'
+import { getRecoveredRate, getDeathsRate, isEmpty } from '@utils/utils'
 import { COLOR } from '@utils/constant'
 import CountryCaseCard from '@components/common/CountryCaseCard'
 import { CaseProps } from '@interface/props'
@@ -66,7 +66,7 @@ const Case = ({
   const [rate, setRate] = useState<Rate>({ recoveredRate: 0, deathsRate: 0 })
 
   useEffect(() => {
-    if (caseData) {
+    if (!isEmpty(caseData)) {
       setRate({
         recoveredRate: getRecoveredRate(caseData),
         deathsRate: getDeathsRate(caseData),

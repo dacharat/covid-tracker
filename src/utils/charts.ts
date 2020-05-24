@@ -35,8 +35,8 @@ export const createChartProps = (
     options: {
       maintainAspectRatio: false,
       scales: {
-        xAxes: [{ stacked: true, ticks: { minRotation: 45 } }],
-        yAxes: [{ stacked: true }],
+        xAxes: [{ stacked, ticks: { minRotation: 45 } }],
+        yAxes: [{ stacked }],
       },
       tooltips: {
         mode: 'label',
