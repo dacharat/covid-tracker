@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { LoadingOutlined } from '@ant-design/icons'
 
 import Flag from '@components/common/Flag'
 import { OverviewText } from '@components/common/components'
@@ -36,7 +37,13 @@ const Overview = ({ name, countryCode, date }: OverviewProps) => {
         <Flag countryCode={countryCode} size={3} />
         <OverviewText>{`${name} Overview`}</OverviewText>
       </View>
-      <DateText>{`Last update: ${new Date(date).toDateString()}`}</DateText>
+      {date ? (
+        <DateText>{`Last update: ${new Date(date).toDateString()}`}</DateText>
+      ) : (
+        <DateText>
+          <LoadingOutlined />
+        </DateText>
+      )}
     </Container>
   )
 }

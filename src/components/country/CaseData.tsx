@@ -1,8 +1,8 @@
 import styled from 'styled-components'
+import { LoadingOutlined } from '@ant-design/icons'
 
 import { Container } from '@components/common/components'
 import { numberWithCommas } from '@utils/utils'
-import { LoadingOutlined } from '@ant-design/icons'
 
 interface CaseDataProps {
   title: string
