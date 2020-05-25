@@ -42,7 +42,7 @@ const CaseData = ({ title, value, increase, color }: CaseDataProps) => {
       </Text>
       <Text size="12px" color={color}>
         {`${(increase > 0 ? '+' : '') + numberWithCommas(increase || 0)} new case${
-          Math.abs(increase) !== 1 && 's'
+          Math.abs(increase) > 1 ? 's' : ''
         }`}
       </Text>
     </CaseDataContainer>
