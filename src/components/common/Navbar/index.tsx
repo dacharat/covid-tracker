@@ -3,16 +3,21 @@ import styled from 'styled-components'
 import Nav from './Nav'
 import ElementsWrapper from './ElementsWrapper'
 import Hamburger from './Hamburger'
-import { NavViewProps, NavBarProps } from '@interface/props'
+import { NavBarProps } from '@interface/props'
+
+interface NavViewProps {
+  $height: number
+  $backgroundColor: string
+}
 
 const NavView = styled.div<NavViewProps>`
-  height: ${({ height }) => (height ? `${height}px` : '70px')};
+  height: ${({ $height }) => ($height ? `${$height}px` : '70px')};
   position: fixed;
   z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
-  background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : '#fff')};
+  background-color: ${({ $backgroundColor }) => ($backgroundColor ? $backgroundColor : '#fff')};
   display: flex;
   justify-content: center;
   box-shadow: 0px 5px 5px -5px #5b5b5b;
@@ -47,7 +52,7 @@ const Navbar = ({
   const finalDelay = delay ? delay : 0
 
   return (
-    <NavView height={height} backgroundColor={backgroundColor}>
+    <NavView $height={height} $backgroundColor={backgroundColor}>
       <NavViewChild>
         <Header>
           <a href="/">{header}</a>

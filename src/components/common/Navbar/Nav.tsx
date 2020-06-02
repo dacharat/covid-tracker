@@ -5,11 +5,7 @@ import { NavProps } from '@interface/props'
 
 const DEFAULT_NAV_WIDTH = 86
 
-interface StyledProps {
-  width: number
-}
-
-const Cover = styled.div<StyledProps>`
+const Cover = styled.div`
   padding: 0 20px;
   height: 100%;
   overflow: hidden;
@@ -18,7 +14,7 @@ const Cover = styled.div<StyledProps>`
   }
 `
 
-const CoverItem = styled.ul<StyledProps>`
+const CoverItem = styled.ul`
   justify-content: center;
   margin: 0;
   padding-left: 0;
@@ -28,13 +24,10 @@ const CoverItem = styled.ul<StyledProps>`
   list-style: none;
 `
 
-const Nav = ({ items, offset, duration, delay, coverWidth, navWidth }: NavProps) => {
-  const finalNavWidth = navWidth ? navWidth : DEFAULT_NAV_WIDTH
-  const finalCoverWidth = coverWidth ? coverWidth : items.length * finalNavWidth
-
+const Nav = ({ items, offset, duration, delay, navWidth }: NavProps) => {
   return (
-    <Cover width={finalCoverWidth}>
-      <CoverItem width={finalCoverWidth}>
+    <Cover>
+      <CoverItem>
         {items.map((item, i) => (
           <NavItem
             key={i}

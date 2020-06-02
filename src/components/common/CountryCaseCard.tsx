@@ -3,7 +3,14 @@ import styled, { keyframes } from 'styled-components'
 
 import { Container } from '@components/common/components'
 import { numberWithCommas } from '@utils/utils'
-import { CaseTextProps, CountryCaseCardProps } from '@interface/props'
+import { CountryCaseCardProps } from '@interface/props'
+
+interface CaseTextProps {
+  $size?: string
+}
+interface CardProps {
+  $color: string
+}
 
 const bounce = keyframes`
   0%,
@@ -28,9 +35,9 @@ const CaseContainer = styled.div`
   height: 100%;
   padding: 10px 0;
 `
-const Card = styled(Container)`
+const Card = styled(Container)<CardProps>`
   padding: 7px 10px;
-  background: ${({ color }) => (color ? color : '#000')};
+  background: ${({ $color }) => ($color ? $color : '#000')};
   border-radius: 20px;
   min-width: 160px;
   margin: 10px;
@@ -41,7 +48,7 @@ const Card = styled(Container)`
 `
 const CaseText = styled.p<CaseTextProps>`
   font-weight: 600;
-  font-size: ${({ size }) => (size ? size : 'calc(15px + 12 * ((100vw - 200px) / (1300)))')};
+  font-size: ${({ $size }) => ($size ? $size : 'calc(15px + 12 * ((100vw - 200px) / (1300)))')};
   color: #fff;
   margin: 0;
 `
@@ -89,19 +96,19 @@ const CountryCaseCard = ({
   }
 
   return (
-    <Card color={cardColor}>
+    <Card $color={cardColor}>
       <Text>{title}</Text>
       <CaseContainer>
         {totalCase ? (
           <>
-            <CaseText size={caseFontSize}>{numberWithCommas(totalCase)}</CaseText>
-            <CaseText size={increaseFontSize}>
+            <CaseText $size={caseFontSize}>{numberWithCommas(totalCase)}</CaseText>
+            <CaseText $size={increaseFontSize}>
               {getPrefix()}
               {` ${increment === 0 ? '-' : numberWithCommas(Math.abs(increment))}`}
             </CaseText>
           </>
         ) : (
-          <CaseText size="35px">
+          <CaseText $size="35px">
             <LoadingOutlined />
           </CaseText>
         )}

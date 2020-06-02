@@ -11,8 +11,8 @@ interface CaseDataProps {
   color: string
 }
 interface TextProps {
-  size: string
-  color: string
+  $size: string
+  $color: string
 }
 
 const CaseDataContainer = styled(Container)`
@@ -20,8 +20,8 @@ const CaseDataContainer = styled(Container)`
 `
 const Text = styled.p<TextProps>`
   margin: 0;
-  font-size: ${({ size }) => size};
-  color: ${({ color }) => color};
+  font-size: ${({ $size }) => $size};
+  color: ${({ $color }) => $color};
   font-weight: 600;
 `
 
@@ -29,18 +29,18 @@ const CaseData = ({ title, value, increase, color }: CaseDataProps) => {
   return (
     <CaseDataContainer>
       {value ? (
-        <Text size="24px" color={color}>
+        <Text $size="24px" $color={color}>
           {numberWithCommas(value || 0)}
         </Text>
       ) : (
-        <Text size="24px" color={color}>
+        <Text $size="24px" $color={color}>
           <LoadingOutlined />
         </Text>
       )}
-      <Text size="16px" color="#a6a6a6">
+      <Text $size="16px" $color="#a6a6a6">
         {title}
       </Text>
-      <Text size="12px" color={color}>
+      <Text $size="12px" $color={color}>
         {`${(increase > 0 ? '+' : '') + numberWithCommas(increase || 0)} new case${
           Math.abs(increase) > 1 ? 's' : ''
         }`}

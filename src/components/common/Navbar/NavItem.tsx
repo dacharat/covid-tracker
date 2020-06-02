@@ -1,10 +1,14 @@
 import { Link } from 'react-scroll'
 import styled from 'styled-components'
 
-import { ListProps, NavItemProps } from '@interface/props'
+import { NavItemProps } from '@interface/props'
+
+interface ListProps {
+  $width: number
+}
 
 const List = styled.li<ListProps>`
-  width: ${({ width }) => `${width}px`};
+  width: ${({ $width }) => `${$width}px`};
   height: 100%;
   padding: 0 5px;
   transition: background-color 0.5s ease;
@@ -39,7 +43,7 @@ const Text = styled.p`
 
 const NavItem = ({ item, offset, duration, delay, width }: NavItemProps) => {
   return (
-    <List width={width}>
+    <List $width={width}>
       <Item
         to={item.target}
         spy={true}

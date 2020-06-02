@@ -2,10 +2,6 @@ import { Global as Gb, DefaultCountry, Timeline, Additional } from './api'
 import { Case } from './types'
 import { ReactNode, ReactText, CSSProperties } from 'react'
 
-export interface ListProps {
-  width: number
-}
-
 export interface NavItemProps {
   item: any
   offset: number
@@ -14,10 +10,6 @@ export interface NavItemProps {
   width: number
 }
 
-export interface NavViewProps {
-  height: number
-  backgroundColor: string
-}
 export interface NavBarProps {
   items: any[]
   offset?: number
@@ -64,10 +56,6 @@ export interface NavProps {
   coverWidth?: number
   navWidth: number
   children?: ReactNode[]
-}
-
-export interface CaseTextProps {
-  size?: string
 }
 
 export interface BarProps {

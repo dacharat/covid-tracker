@@ -5,7 +5,7 @@ interface DataPerMillionBoxProps {
   title: string
 }
 interface TextProps {
-  size?: string
+  $size?: string
 }
 
 const Box = styled.div`
@@ -20,7 +20,7 @@ const Box = styled.div`
   }
 `
 const Text = styled.p<TextProps>`
-  font-size: ${({ size }) => size || '24px'};
+  font-size: ${({ $size }) => $size || '24px'};
   margin: 0px;
   padding: 5px 0;
 `
@@ -28,9 +28,9 @@ const Text = styled.p<TextProps>`
 const DataPerMillionBox = ({ value, title }: DataPerMillionBoxProps) => {
   return (
     <Box>
-      <Text size="16px">{title}</Text>
+      <Text $size="16px">{title}</Text>
       <Text>{value}</Text>
-      <Text size="12px">Per Million Population</Text>
+      <Text $size="12px">Per Million Population</Text>
     </Box>
   )
 }
